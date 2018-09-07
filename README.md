@@ -6,7 +6,7 @@
 
 [Documentation](./documentation.md)
 
-##Usage
+## Usage
 
 Add full text to `title` attribute.
 
@@ -25,7 +25,7 @@ To truncate in the middle of the text set `title-break` to `center`. The default
 <abbr is="truncate-title" title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui." title-break="tail">Medium Lorem ipsum dolor a … yl drinking vinegar ennui.</abbr>
 ```
 
-##Demo
+## Demo
 
 `npm run serve`
 
