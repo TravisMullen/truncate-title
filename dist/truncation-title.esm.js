@@ -1,7 +1,7 @@
+(function(l, i, v, e) { v = l.createElement(i); v.async = 1; v.src = '//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; e = l.getElementsByTagName(i)[0]; e.parentNode.insertBefore(v, e)})(document, 'script');
 /**
  * Enumeration - Immuatble key value pairs.
  *
- * @note Can be used with just keys and null values. Key will be substituded for value.
  * @link https://bitbucket.org/snippets/travismullen/6egzxX/enumeration.git
  * @class
  * @param {object} types - keys will serve as valid types. values will be results of test
@@ -1057,8 +1057,8 @@ const elementRegistryName = 'truncate-title';
  *
  * @readonly
  * @enum {string}
- * @see cutCenter
- * @see cutTail
+ * @see TruncateTitle.cutCenter
+ * @see TruncateTitle.cutTail
  */
 const TYPES = new Enumeration({
   center: 'cutCenter',
@@ -1083,14 +1083,14 @@ class TruncateTitle extends HTMLElement {
 
     /**
      * requestAnimationFrame reference for cancellation.
-     * @see doTruncate
+     * @see _doTruncate
      * @see disconnectedCallback
      */
     this._rAF = null;
 
     /**
      * Size of full text node (inner content) as rendered in DOM.
-     * @see updateContent
+     * @see _updateContent
      * @see shouldAugment
      */
     this.contentWidth = null;
@@ -1098,7 +1098,7 @@ class TruncateTitle extends HTMLElement {
     /**
      * Character added to truncated text.
      * @default
-     * @todo - Make this an attribute?
+     * @todo Make this an attribute?
      */
     this.separator = '\u2026';
 
@@ -1121,10 +1121,10 @@ class TruncateTitle extends HTMLElement {
   /**
    * Animate removal or addition of characters depending on parent's size.
    *
-   * @param - {string} title Text be truncated
-   * @param - {boolean} [grow=true] Should the text be lengthened or shortened
+   * @param {string} title Text be truncated
+   * @param {boolean} [grow=true] Should the text be lengthened or shortened
    */
-  doTruncate (title, grow = true) {
+  _doTruncate (title, grow = true) {
     const checkFn = grow ? TruncateTitle.shouldTruncate : TruncateTitle.shouldGrow;
     if (checkFn(this)) {
       const rAFhandler = now => {
@@ -1151,10 +1151,10 @@ class TruncateTitle extends HTMLElement {
   /**
    * Get and save the text width for comparison.
    *
-   * @param - {string} newValue
-   * @param - {string} newValue
+   * @param {string} newValue
+   * @param {string} newValue
    */
-  updateContent (newValue) {
+  _updateContent (newValue) {
     /** render the raw text string in the DOM */
     this.textContent = newValue;
     /** store width value for comparison later */
@@ -1175,11 +1175,11 @@ class TruncateTitle extends HTMLElement {
     /**
      * Force text content to extend past parent for width analysis.
      *
-     * @see updateContent
+     * @see _updateContent
      */
     this.style.whiteSpace = 'nowrap';
     this.style.opacity = 0;
-    /** @todo - map transitionTime to a CSS custom property */
+    /** @todo Map transitionTime to a CSS custom property */
     this.style.transition = 'opacity .3s';
 
     /**
@@ -1192,33 +1192,33 @@ class TruncateTitle extends HTMLElement {
         const {width} = entry.contentRect;
 
         /**
-         * Cancel any existing doTruncate.
-         * @note - Fixes infanite loop if parent is expaneded before doTruncate is complete and no longer requires truncation.
+         * Cancel any existing _doTruncate.
+         * @note Fixes infanite loop if parent is expaneded before _doTruncate is complete and no longer requires truncation.
          */
         if (this._rAF) { window.cancelAnimationFrame(this._rAF); }
 
         /**
          * Be sure there was actually a change.
-         * @todo - test that is required to reduce events
+         * @todo test that is required to reduce events
          */
         if (this._hasChanged[entry] === width) { continue }
 
         /** Determine if parent is less than the inner text size. */
         if (!TruncateTitle.shouldAugment(this)) {
-          this.updateContent(this.getAttribute('title'));
+          this._updateContent(this.getAttribute('title'));
           this._hasChanged[entry] = width;
           continue
         }
 
         /** Determine if resize of the parent getting larger. */
         if (this._hasChanged[entry] < width) {
-          this.doTruncate(this.getAttribute('title'), false);
+          this._doTruncate(this.getAttribute('title'), false);
           this._hasChanged[entry] = width;
           continue
         }
 
         /** Determine if resize of the parent getting smaller. */
-        this.doTruncate(this.getAttribute('title'));
+        this._doTruncate(this.getAttribute('title'));
         this._hasChanged[entry] = width;
       }
     });
@@ -1232,15 +1232,8 @@ class TruncateTitle extends HTMLElement {
      * Set title value. Do first steps for truncation.
      */
     if (this.hasAttribute('title')) {
-      this.updateContent(this.getAttribute('title'));
-      this.doTruncate(this.getAttribute('title'));
-    }
-
-    /**
-     * Determine type of truncation.
-     */
-    if (!this.hasAttribute('title-break')) {
-      this.setAttribute('title-break', TYPES.split);
+      this._updateContent(this.getAttribute('title'));
+      this._doTruncate(this.getAttribute('title'));
     }
   }
 
@@ -1253,15 +1246,15 @@ class TruncateTitle extends HTMLElement {
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
-    /** @note - make sure Node.isConnected before trying to augment content */
+    /** @note Make sure Node.isConnected before trying to augment content */
     if (name === 'title' && this.isConnected) {
-      this.updateContent(newValue);
-      this.doTruncate(newValue);
+      this._updateContent(newValue);
+      this._doTruncate(newValue);
     }
-    /** @note - if newValue is undefined its a typeof string */
+    /** @note If newValue is undefined its a typeof string */
     if (name === 'title-break' && newValue !== 'undefined') {
-      this.truncationType = newValue;
-      this.doTruncate(this.getAttribute('title'));
+      this.truncationType = TYPES[newValue];
+      this._doTruncate(this.getAttribute('title'));
     }
   }
 
@@ -1285,7 +1278,7 @@ class TruncateTitle extends HTMLElement {
     if (TYPES.has(newValue.toLowerCase())) {
       this.setAttribute('title-break', newValue);
     } else {
-      /** @todo - throw error, warning or ignore? */
+      /** @todo throw error, warning or ignore? */
       console.warn(`${newValue} is not a valid truncation type. It has not been changed.`);
     }
   }
@@ -1297,8 +1290,8 @@ class TruncateTitle extends HTMLElement {
   /**
    * Determines if full title text, rendered as inner content, is larger than its parent.
    *
-   * @param - {HTMLElement} self Instance of TruncateTitle
-   * @returns - {boolean}
+   * @param {HTMLElement} self Instance of TruncateTitle
+   * @returns {boolean}
    * @see this._resizeObserver
    */
   static shouldAugment (self) {
@@ -1311,9 +1304,9 @@ class TruncateTitle extends HTMLElement {
   /**
    * Determines if truncated title text is larger than its parent.
    *
-   * @param - {HTMLElement} self Instance of TruncateTitle
-   * @returns - {boolean}
-   * @see doTruncate
+   * @param {HTMLElement} self Instance of TruncateTitle
+   * @returns {boolean}
+   * @see _doTruncate
    */
   static shouldTruncate (self) {
     const box = 0 +
@@ -1325,10 +1318,10 @@ class TruncateTitle extends HTMLElement {
   /**
    * Determines if truncated title text has room within its parent to add more characters.
    *
-   * @note - accounts for padding of parent
-   * @param - {HTMLElement} self Instance of TruncateTitle
-   * @returns - {boolean}
-   * @see doTruncate
+   * @note Accounts for padding of parent.
+   * @param {HTMLElement} self Instance of TruncateTitle
+   * @returns {boolean}
+   * @see _doTruncate
    */
   static shouldGrow (self) {
     const box = 0 +
@@ -1339,6 +1332,9 @@ class TruncateTitle extends HTMLElement {
 
   /**
    * Remove characters from the end of the string.
+   * @param {string} title
+   * @param {number} increment Number of characters to be removed.
+   * @returns {string}
    */
   static cutTail (title, increment, separator = '\u2026') {
     return [
@@ -1349,6 +1345,10 @@ class TruncateTitle extends HTMLElement {
 
   /**
    * Remove characters from the center of the string.
+   * @param {string} title
+   * @param {number} increment Number of characters to be removed.
+   * @note `increment` is doubled since it is applied twice.
+   * @returns {string}
    */
   static cutCenter (title, increment, separator = '\u2026') {
     const centerIndex = Math.floor(title.length / 2);

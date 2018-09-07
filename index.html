@@ -2,130 +2,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Demo</title>
-  <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script> 
+  <title>Truncation Title - Custom Element</title>
+  <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script>
+  <script type="module" src="./dist/truncation-title.esm.js"></script>
   <style>
-    body {
-      /*padding: 3rem;
-      border: 0.5rem solid #ececec;
-      margin: 0;*/
-    }
-    code {
-      padding: 0.5rem;
-      display: block;
-      font-size: 1rem;
-      color:#ececec;
-      /*border: 1px solid #ececec;*/
-      background-color: #444;
-      /*display: block;*/
-      /*border: 3px solid red;*/
-    }
-
-    [is="attribute-watcher"] {
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      font-size: 1rem;
-      color:#000;
-      list-style: none;
-
-      max-height: 120px;
-      overflow-y: scroll;
-    }
-    [is="attribute-watcher"] li {
-      box-sizing: border-box;
-      padding: 0.1rem 0.25rem;
-      width: 100%;
-      display: block;
-      border-bottom: 1px solid #444;
-    }
-    [is="attribute-watcher"] li:last-child {
-      position: sticky;
-    }
-
-    [is="attribute-watcher"] li.set {
-      background-color: gold;
-    }
-
-    [is="attribute-watcher"] li.removed {
-      background-color: #FF7F50;
-    }
-
-    [is="attribute-watcher"] li.added {
-      background-color: #9ACD32;
-    }
-
-    .show-ready-status[success] {
-      border: 2px solid lime;
-    }
-    .show-ready-status[failure] {
-      border: 2px solid coral;
-    }
-
-    /* layout */
-    .flex-layout {
-      box-sizing: border-box;
-      display: flex;
-      background-color: #ececec;
-    }
-
-    .flex-layout > * {
-      margin: 1rem;
-      flex: 1 1 auto;
-      min-width: 30%;
-    }
-    .flex-layout > :first-child {
+    .stage {
+      margin-top: 1rem;
       padding: 1rem;
-      flex: 1 1 auto;
-      border: 1px solid #444;
-      background-color: #fff;
-    }
-
-    .flex-layout > :last-child {
-      flex: 0 1 auto;
-      /*background-color: #444;*/
-      border: 1px solid #444;
-      color: #ececec;
-    }
-    
-    .global-styles {
-      display: block;
-      padding: 1.7rem 2rem;
-      margin: 1rem;
-
-      cursor: pointer;
-      outline: none;
-
-      border-radius: 0.3rem;
-      border-color: tranparent;
-      border-size: 1rem;
-
-      transition: background-color .3s ease-in-out;
-      will-change: background-color;
-    }
-
-
-    .global-styles[active] {
-      background-color: orange;
-      cursor: default;
-    }
-    .global-styles[ready] {
-      background-color: green;
-    }
-    .global-styles[ready]:hover {
-      background-color: yellow;
-    }
-    .global-styles[disabled] {
-      color: white;
-      background-color: #444;
-      cursor: default;
+      border: 0.25rem solid #444;
     }
   </style>
 </head>
 <body>
-  <!-- Stage for demo and development of custom Web Component -->
-  <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template -->
-  <div style="margin: 20px; border: 2px solid blue;"><div class="new-jawn inner" style="overflow: hidden; border: 2px solid purple; padding: 20px;"><abbr is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui. " title-break="undefined" style="text-decoration-line: none; display: inline-block; white-space: nowrap; box-sizing: border-box; opacity: 1; transition: opacity 0.3s ease 0s;">Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra ta …</abbr></div></div>
+
+  <h1>Truncation Title</h1>
+  <h2>Resize browser window to see truncation in action.</h2>
+  <code>title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."</code>
+  <div class="stage">
+    <abbr is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></abbr>
+  </div>
+  <code>title-break="tails"</code>
+
+  <div class="stage">
+    <abbr is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui." title-break="center"></abbr>
+  </div>
+  <code>title-break="center"</code>
+
   <noscript>
     You need javascript enabled, fam.
   </noscript>

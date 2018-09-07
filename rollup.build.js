@@ -20,13 +20,6 @@ export default [
     plugins: [
       resolve(), // so Rollup can find `resize-observer-polyfill`
       commonjs() // so Rollup can convert `resize-observer-polyfill` to an ES module
-      // serve({
-      //   open: true,
-      //   contentBase: ['','dist']
-      // }),
-      // livereload({
-      //   watch: ['src', 'index.html']
-      // })
     ]
   }
 ]

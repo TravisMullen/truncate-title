@@ -18,11 +18,10 @@
     "standard": "^11.0.1"
   },
   "scripts": {
-    "build": "npm run format && npm run docs && rollup -c",
+    "serve": "rollup --config rollup.serve.js -w",
+    "build": "npm run format && npm run docs && rollup --config rollup.build.js",
     "docs": "./node_modules/.bin/jsdoc2md ./src/*.js > documentation.md",
-    "dev": "rollup -c -w",
-    "test": "node test/test.js",
-    "pretest": "npm run build",
+    "test": "npm run build && node test/test.js",
     "format": "./node_modules/standard/bin/cmd.js --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
   },
   "files": [

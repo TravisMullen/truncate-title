@@ -22,7 +22,6 @@
 Enumeration - Immuatble key value pairs.
 
 **Kind**: global class  
-**Note**: Can be used with just keys and null values. Key will be substituded for value.  
 **Link**: https://bitbucket.org/snippets/travismullen/6egzxX/enumeration.git  
 
 * [Enumeration](#Enumeration)
@@ -66,14 +65,14 @@ Is a valid key/value of instance.
         * [.textContent](#TruncateTitle+textContent)
         * [.contentWidth](#TruncateTitle+contentWidth)
         * [._resizeObserver](#TruncateTitle+_resizeObserver)
-        * [.doTruncate(title, grow)](#TruncateTitle+doTruncate)
-        * [.updateContent(newValue)](#TruncateTitle+updateContent)
+        * [._doTruncate(title, [grow])](#TruncateTitle+_doTruncate)
+        * [._updateContent(newValue, newValue)](#TruncateTitle+_updateContent)
     * _static_
         * [.shouldAugment(self)](#TruncateTitle.shouldAugment) ⇒ <code>boolean</code>
         * [.shouldTruncate(self)](#TruncateTitle.shouldTruncate) ⇒ <code>boolean</code>
         * [.shouldGrow(self)](#TruncateTitle.shouldGrow) ⇒ <code>boolean</code>
-        * [.cutTail()](#TruncateTitle.cutTail)
-        * [.cutCenter()](#TruncateTitle.cutCenter)
+        * [.cutTail(title, increment)](#TruncateTitle.cutTail) ⇒ <code>string</code>
+        * [.cutCenter(title, increment)](#TruncateTitle.cutCenter) ⇒ <code>string</code>
 
 <a name="new_TruncateTitle_new"></a>
 
@@ -95,7 +94,7 @@ requestAnimationFrame reference for cancellation.
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**
 
-- doTruncate
+- _doTruncate
 - disconnectedCallback
 
 <a name="TruncateTitle+contentWidth"></a>
@@ -106,7 +105,7 @@ Size of full text node (inner content) as rendered in DOM.
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**
 
-- updateContent
+- _updateContent
 - shouldAugment
 
 <a name="TruncateTitle+separator"></a>
@@ -118,7 +117,7 @@ Character added to truncated text.
 **Default**: <code>…</code>  
 **Todo**
 
-- [ ] - Make this an attribute?
+- [ ] Make this an attribute?
 
 <a name="TruncateTitle+_increment"></a>
 
@@ -152,29 +151,29 @@ ResizeObserver callback function for handling truncation logic.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**: https://wicg.github.io/ResizeObserver/  
-<a name="TruncateTitle+doTruncate"></a>
+<a name="TruncateTitle+_doTruncate"></a>
 
-### truncateTitle.doTruncate(title, grow)
+### truncateTitle._doTruncate(title, [grow])
 Animate removal or addition of characters depending on parent's size.
 
 **Kind**: instance method of [<code>TruncateTitle</code>](#TruncateTitle)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| title | <code>string</code> |  | title Text be truncated |
-| grow | <code>boolean</code> | <code>true</code> | [grow=true] Should the text be lengthened or shortened |
+| title | <code>string</code> |  | Text be truncated |
+| [grow] | <code>boolean</code> | <code>true</code> | Should the text be lengthened or shortened |
 
-<a name="TruncateTitle+updateContent"></a>
+<a name="TruncateTitle+_updateContent"></a>
 
-### truncateTitle.updateContent(newValue)
+### truncateTitle._updateContent(newValue, newValue)
 Get and save the text width for comparison.
 
 **Kind**: instance method of [<code>TruncateTitle</code>](#TruncateTitle)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| newValue | <code>string</code> | newValue |
-|  | <code>string</code> | newValue |
+| Param | Type |
+| --- | --- |
+| newValue | <code>string</code> | 
+| newValue | <code>string</code> | 
 
 <a name="TruncateTitle.shouldAugment"></a>
 
@@ -182,12 +181,11 @@ Get and save the text width for comparison.
 Determines if full title text, rendered as inner content, is larger than its parent.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Returns**: <code>boolean</code> - -  
 **See**: this._resizeObserver  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| self | <code>HTMLElement</code> | self Instance of TruncateTitle |
+| self | <code>HTMLElement</code> | Instance of TruncateTitle |
 
 <a name="TruncateTitle.shouldTruncate"></a>
 
@@ -195,12 +193,11 @@ Determines if full title text, rendered as inner content, is larger than its par
 Determines if truncated title text is larger than its parent.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Returns**: <code>boolean</code> - -  
-**See**: doTruncate  
+**See**: _doTruncate  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| self | <code>HTMLElement</code> | self Instance of TruncateTitle |
+| self | <code>HTMLElement</code> | Instance of TruncateTitle |
 
 <a name="TruncateTitle.shouldGrow"></a>
 
@@ -208,26 +205,38 @@ Determines if truncated title text is larger than its parent.
 Determines if truncated title text has room within its parent to add more characters.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Returns**: <code>boolean</code> - -  
-**Note**: - accounts for padding of parent  
-**See**: doTruncate  
+**Note**: Accounts for padding of parent.  
+**See**: _doTruncate  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| self | <code>HTMLElement</code> | self Instance of TruncateTitle |
+| self | <code>HTMLElement</code> | Instance of TruncateTitle |
 
 <a name="TruncateTitle.cutTail"></a>
 
-### TruncateTitle.cutTail()
+### TruncateTitle.cutTail(title, increment) ⇒ <code>string</code>
 Remove characters from the end of the string.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| title | <code>string</code> |  |
+| increment | <code>number</code> | Number of characters to be removed. |
+
 <a name="TruncateTitle.cutCenter"></a>
 
-### TruncateTitle.cutCenter()
+### TruncateTitle.cutCenter(title, increment) ⇒ <code>string</code>
 Remove characters from the center of the string.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
+**Note**: `increment` is doubled since it is applied twice.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| title | <code>string</code> |  |
+| increment | <code>number</code> | Number of characters to be removed. |
+
 <a name="TYPES"></a>
 
 ## TYPES : <code>enum</code>
@@ -237,8 +246,8 @@ Availible truncation types.
 **Read only**: true  
 **See**
 
-- cutCenter
-- cutTail
+- TruncateTitle.cutCenter
+- TruncateTitle.cutTail
 
 <a name="elementRegistryName"></a>
 
