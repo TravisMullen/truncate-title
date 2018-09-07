@@ -1236,13 +1236,6 @@ class TruncateTitle extends HTMLElement {
       this._updateContent(this.getAttribute('title'));
       this._doTruncate(this.getAttribute('title'));
     }
-
-    /**
-     * Determine type of truncation.
-     */
-    if (!this.hasAttribute('title-break')) {
-      this.setAttribute('title-break', TYPES.split);
-    }
   }
 
   disconnectedCallback () {
@@ -1261,7 +1254,7 @@ class TruncateTitle extends HTMLElement {
     }
     /** @note If newValue is undefined its a typeof string */
     if (name === 'title-break' && newValue !== 'undefined') {
-      this.truncationType = newValue;
+      this.truncationType = TYPES[newValue];
       this._doTruncate(this.getAttribute('title'));
     }
   }
