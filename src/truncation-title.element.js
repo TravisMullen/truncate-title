@@ -8,7 +8,7 @@ const elementRegistryName = 'truncate-title'
 
 /**
  * Availible truncation types.
- * 
+ *
  * @readonly
  * @enum {string}
  * @see cutCenter
@@ -115,9 +115,9 @@ class TruncateTitle extends HTMLElement {
     this.contentWidth = this.offsetWidth
   }
 
-// ========================================================================== //
-// Custom Element lifecycle hooks.
-// ========================================================================== //
+  // ========================================================================== //
+  // Custom Element lifecycle hooks.
+  // ========================================================================== //
 
   connectedCallback () {
     /**
@@ -126,7 +126,7 @@ class TruncateTitle extends HTMLElement {
     this.style.textDecorationLine = 'none'
     this.style.boxSizing = 'border-box'
     this.style.display = 'inline-block'
-    /** 
+    /**
      * Force text content to extend past parent for width analysis.
      *
      * @see updateContent
@@ -145,13 +145,13 @@ class TruncateTitle extends HTMLElement {
       for (const entry of entries) {
         const {width} = entry.contentRect
 
-        /** 
+        /**
          * Cancel any existing doTruncate.
          * @note - Fixes infanite loop if parent is expaneded before doTruncate is complete and no longer requires truncation.
          */
         if (this._rAF) { window.cancelAnimationFrame(this._rAF) }
 
-        /** 
+        /**
          * Be sure there was actually a change.
          * @todo - test that is required to reduce events
          */
@@ -219,9 +219,9 @@ class TruncateTitle extends HTMLElement {
     }
   }
 
-// ========================================================================== //
-// Getters and Setters.
-// ========================================================================== //
+  // ========================================================================== //
+  // Getters and Setters.
+  // ========================================================================== //
 
   get title () {
     this.getAttribute('title')
@@ -244,9 +244,9 @@ class TruncateTitle extends HTMLElement {
     }
   }
 
-// ========================================================================== //
-// Static Functions.
-// ========================================================================== //
+  // ========================================================================== //
+  // Static Functions.
+  // ========================================================================== //
 
   /**
    * Determines if full title text, rendered as inner content, is larger than its parent.

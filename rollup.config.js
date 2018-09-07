@@ -1,8 +1,8 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
-import pkg from './package.json';
+import pkg from './package.json'
 
 export default [
   // browser-friendly UMD build
@@ -29,4 +29,4 @@ export default [
       // })
     ]
   }
-];
+]

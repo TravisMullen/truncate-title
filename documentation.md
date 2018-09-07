@@ -2,7 +2,7 @@
 
 <dl>
 <dt><a href="#Enumeration">Enumeration</a></dt>
-<dd><p>Quick Enumeration</p>
+<dd><p>Enumeration - Immuatble key value pairs.</p>
 </dd>
 <dt><a href="#TruncateTitle">TruncateTitle</a> ⇐ <code>HTMLElement</code></dt>
 <dd></dd>
@@ -19,10 +19,16 @@
 <a name="Enumeration"></a>
 
 ## Enumeration
-Quick Enumeration
+Enumeration - Immuatble key value pairs.
 
 **Kind**: global class  
+**Note**: Can be used with just keys and null values. Key will be substituded for value.  
 **Link**: https://bitbucket.org/snippets/travismullen/6egzxX/enumeration.git  
+
+* [Enumeration](#Enumeration)
+    * [new exports.Enumeration(types)](#new_Enumeration_new)
+    * [.has(key)](#Enumeration+has) ⇒ <code>boolean</code>
+
 <a name="new_Enumeration_new"></a>
 
 ### new exports.Enumeration(types)
@@ -30,6 +36,17 @@ Quick Enumeration
 | Param | Type | Description |
 | --- | --- | --- |
 | types | <code>object</code> | keys will serve as valid types. values will be results of test |
+
+<a name="Enumeration+has"></a>
+
+### enumeration.has(key) ⇒ <code>boolean</code>
+Is a valid key/value of instance.
+
+**Kind**: instance method of [<code>Enumeration</code>](#Enumeration)  
+
+| Param | Type |
+| --- | --- |
+| key | <code>string</code> | 
 
 <a name="TruncateTitle"></a>
 
