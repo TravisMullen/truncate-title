@@ -1,16 +1,12 @@
-import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
+import build from './rollup.build.js'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
-import pkg from './package.json'
 
-export default [
-  {
-    input: 'src/truncation-title.element.js',
-    output: { file: pkg.module, format: 'es' },
+export default {
+    input: build.input,
+    output: build.output,
     plugins: [
-      resolve(), // so Rollup can find `resize-observer-polyfill`
-      commonjs(), // so Rollup can convert `resize-observer-polyfill` to an ES module
+      ...build.plugins,
       serve({
         open: true,
         contentBase: ['','dist']
@@ -20,4 +16,3 @@ export default [
       })
     ]
   }
-]

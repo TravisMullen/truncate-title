@@ -2,9 +2,8 @@
   "name": "truncation-title",
   "version": "1.0.0",
   "description": "Custom HTMLElement for truncating text. Extends Abbr tag.",
-  "main": "dist/truncation-title.cjs.js",
-  "module": "dist/truncation-title.esm.js",
-  "browser": "dist/truncation-title.umd.js",
+  "main": "dist/truncation-title.js",
+  "module": "dist/truncation-title.js",
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.1.0",
     "jsdoc-to-markdown": "^4.0.1",
