@@ -1,0 +1,31 @@
+{
+  "name": "truncation-title",
+  "version": "1.0.0",
+  "description": "Custom HTMLElement for truncating text. Extends Abbr tag.",
+  "main": "dist/truncation-title.cjs.js",
+  "module": "dist/truncation-title.esm.js",
+  "browser": "dist/truncation-title.umd.js",
+  "devDependencies": {
+    "@webcomponents/webcomponentsjs": "^2.1.0",
+    "jsdoc-to-markdown": "^4.0.1",
+    "resize-observer-polyfill": "^1.5.0",
+    "rollup": "^0.64.0",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-livereload": "^0.6.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-serve": "^0.4.2",
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.1"
+  },
+  "scripts": {
+    "build": "npm run format && npm run docs && rollup -c",
+    "docs": "./node_modules/.bin/jsdoc2md ./src/*.js > documentation.md",
+    "dev": "rollup -c -w",
+    "test": "node test/test.js",
+    "pretest": "npm run build",
+    "format": "./node_modules/standard/bin/cmd.js --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
+  },
+  "files": [
+    "dist"
+  ]
+}
