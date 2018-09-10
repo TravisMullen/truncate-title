@@ -2,7 +2,6 @@
 
 <!-- [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) -->
 
-[] change dist to public
 
 **Custom Element** for shortening text. Extends `abbr` tag.
 
@@ -30,6 +29,15 @@ To truncate in the middle of the text set `title-break` to `center`. The default
 ## Demo
 
 `npm run serve`
+
+
+## Todo
+
+- [ ] Add Test Coverage.
+- [ ] Use CSS Property to set default animation styles.
+- [ ] Set-up NPM for inclusion into other projects.
+- [ ] Sperate functions into multiple files?
+
 
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
