@@ -36,7 +36,7 @@ To truncate in the middle of the text set `title-break` to `center`. The default
 - [ ] Add Test Coverage.
 - [ ] Use CSS Property to set default animation styles.
 - [ ] Set-up NPM for inclusion into other projects.
-- [ ] Sperate functions into multiple files?
+- [ ] Seperate functions into multiple files?
 
 
 
