@@ -2,7 +2,7 @@
 
 <dl>
 <dt><a href="#Enumeration">Enumeration</a></dt>
-<dd><p>Enumeration - Immuatble key value pairs.</p>
+<dd><p>Enumeration - Immutable key value pairs.</p>
 </dd>
 <dt><a href="#TruncateTitle">TruncateTitle</a> ⇐ <code>HTMLElement</code></dt>
 <dd></dd>
@@ -19,23 +19,10 @@
 <a name="Enumeration"></a>
 
 ## Enumeration
-Enumeration - Immuatble key value pairs.
+Enumeration - Immutable key value pairs.
 
 **Kind**: global class  
 **Link**: https://bitbucket.org/snippets/travismullen/6egzxX/enumeration.git  
-
-* [Enumeration](#Enumeration)
-    * [new exports.Enumeration(types)](#new_Enumeration_new)
-    * [.has(key)](#Enumeration+has) ⇒ <code>boolean</code>
-
-<a name="new_Enumeration_new"></a>
-
-### new exports.Enumeration(types)
-
-| Param | Type | Description |
-| --- | --- | --- |
-| types | <code>object</code> | keys will serve as valid types. values will be results of test |
-
 <a name="Enumeration+has"></a>
 
 ### enumeration.has(key) ⇒ <code>boolean</code>
@@ -65,13 +52,13 @@ Is a valid key/value of instance.
         * [.textContent](#TruncateTitle+textContent)
         * [.contentWidth](#TruncateTitle+contentWidth)
         * [._resizeObserver](#TruncateTitle+_resizeObserver)
-        * [._doTruncate(title, [grow])](#TruncateTitle+_doTruncate)
+        * [._doTruncate(title, grow)](#TruncateTitle+_doTruncate)
         * [._updateContent(newValue, newValue)](#TruncateTitle+_updateContent)
     * _static_
         * [.shouldAugment(self)](#TruncateTitle.shouldAugment) ⇒ <code>boolean</code>
         * [.shouldTruncate(self)](#TruncateTitle.shouldTruncate) ⇒ <code>boolean</code>
         * [.shouldGrow(self)](#TruncateTitle.shouldGrow) ⇒ <code>boolean</code>
-        * [.cutTail(title, increment)](#TruncateTitle.cutTail) ⇒ <code>string</code>
+        * [.cutEnd(title, increment)](#TruncateTitle.cutEnd) ⇒ <code>string</code>
         * [.cutCenter(title, increment)](#TruncateTitle.cutCenter) ⇒ <code>string</code>
 
 <a name="new_TruncateTitle_new"></a>
@@ -153,7 +140,7 @@ ResizeObserver callback function for handling truncation logic.
 **See**: https://wicg.github.io/ResizeObserver/  
 <a name="TruncateTitle+_doTruncate"></a>
 
-### truncateTitle._doTruncate(title, [grow])
+### truncateTitle._doTruncate(title, grow)
 Animate removal or addition of characters depending on parent's size.
 
 **Kind**: instance method of [<code>TruncateTitle</code>](#TruncateTitle)  
@@ -161,7 +148,7 @@ Animate removal or addition of characters depending on parent's size.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | title | <code>string</code> |  | Text be truncated |
-| [grow] | <code>boolean</code> | <code>true</code> | Should the text be lengthened or shortened |
+| grow | <code>boolean</code> | <code>true</code> | Should the text be lengthened or shortened |
 
 <a name="TruncateTitle+_updateContent"></a>
 
@@ -212,9 +199,9 @@ Determines if truncated title text has room within its parent to add more charac
 | --- | --- | --- |
 | self | <code>HTMLElement</code> | Instance of TruncateTitle |
 
-<a name="TruncateTitle.cutTail"></a>
+<a name="TruncateTitle.cutEnd"></a>
 
-### TruncateTitle.cutTail(title, increment) ⇒ <code>string</code>
+### TruncateTitle.cutEnd(title, increment) ⇒ <code>string</code>
 Remove characters from the end of the string.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
@@ -247,7 +234,7 @@ Availible truncation types.
 **See**
 
 - TruncateTitle.cutCenter
-- TruncateTitle.cutTail
+- TruncateTitle.cutEnd
 
 <a name="elementRegistryName"></a>
 

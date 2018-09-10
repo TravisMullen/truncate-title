@@ -1,14 +1,13 @@
 /**
- * Enumeration - Immuatble key value pairs.
+ * Enumeration - Immutable key value pairs.
  *
  * @link https://bitbucket.org/snippets/travismullen/6egzxX/enumeration.git
  * @class
- * @param {object} types - keys will serve as valid types. values will be results of test
  */
 class Enumeration {
   constructor (obj) {
     for (const key in obj) {
-      this[key] = obj[key] || key;
+      this[key] = obj[key];
     }
     return Object.freeze(this)
   }
@@ -1057,11 +1056,11 @@ const elementRegistryName = 'truncate-title';
  * @readonly
  * @enum {string}
  * @see TruncateTitle.cutCenter
- * @see TruncateTitle.cutTail
+ * @see TruncateTitle.cutEnd
  */
 const TYPES = new Enumeration({
   center: 'cutCenter',
-  tail: 'cutTail'
+  end: 'cutEnd'
 });
 
 /**
@@ -1078,7 +1077,7 @@ class TruncateTitle extends HTMLElement {
      * @default
      * @see attributeChangedCallback
      */
-    this.truncationType = TYPES.tail;
+    this.truncationType = TYPES.end;
 
     /**
      * requestAnimationFrame reference for cancellation.
@@ -1121,7 +1120,7 @@ class TruncateTitle extends HTMLElement {
    * Animate removal or addition of characters depending on parent's size.
    *
    * @param {string} title Text be truncated
-   * @param {boolean} [grow=true] Should the text be lengthened or shortened
+   * @param {boolean} grow Should the text be lengthened or shortened
    */
   _doTruncate (title, grow = true) {
     const checkFn = grow ? TruncateTitle.shouldTruncate : TruncateTitle.shouldGrow;
@@ -1335,7 +1334,7 @@ class TruncateTitle extends HTMLElement {
    * @param {number} increment Number of characters to be removed.
    * @returns {string}
    */
-  static cutTail (title, increment, separator = '\u2026') {
+  static cutEnd (title, increment, separator = '\u2026') {
     return [
       title.slice(0, (title.length - increment)),
       separator

@@ -2,6 +2,8 @@
 
 <!-- [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) -->
 
+[] change dist to public
+
 **Custom Element** for shortening text. Extends `abbr` tag.
 
 [Documentation](./documentation.md)
