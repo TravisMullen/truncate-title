@@ -53,7 +53,7 @@ Is a valid key/value of instance.
         * [.contentWidth](#TruncateTitle+contentWidth)
         * [._resizeObserver](#TruncateTitle+_resizeObserver)
         * [._doTruncate(title, grow)](#TruncateTitle+_doTruncate)
-        * [._updateContent(newValue, newValue)](#TruncateTitle+_updateContent)
+        * [._updateContent(newValue)](#TruncateTitle+_updateContent)
     * _static_
         * [.shouldAugment(self)](#TruncateTitle.shouldAugment) ⇒ <code>boolean</code>
         * [.shouldTruncate(self)](#TruncateTitle.shouldTruncate) ⇒ <code>boolean</code>
@@ -152,14 +152,13 @@ Animate removal or addition of characters depending on parent's size.
 
 <a name="TruncateTitle+_updateContent"></a>
 
-### truncateTitle._updateContent(newValue, newValue)
+### truncateTitle._updateContent(newValue)
 Get and save the text width for comparison.
 
 **Kind**: instance method of [<code>TruncateTitle</code>](#TruncateTitle)  
 
 | Param | Type |
 | --- | --- |
-| newValue | <code>string</code> | 
 | newValue | <code>string</code> | 
 
 <a name="TruncateTitle.shouldAugment"></a>

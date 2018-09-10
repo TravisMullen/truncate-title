@@ -1150,7 +1150,6 @@ class TruncateTitle extends HTMLElement {
    * Get and save the text width for comparison.
    *
    * @param {string} newValue
-   * @param {string} newValue
    */
   _updateContent (newValue) {
     /** render the raw text string in the DOM */
