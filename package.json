@@ -6,8 +6,15 @@
   "module": "dist/truncate-title.js",
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.1.0",
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
     "enumeration-class": "git+https://github.com/TravisMullen/enumeration-class.git",
     "jsdoc-to-markdown": "^4.0.1",
+    "mocha": "^5.2.0",
+    "puppeteer": "^1.8.0",
     "resize-observer-polyfill": "^1.5.0",
     "rollup": "^0.64.0",
     "rollup-plugin-commonjs": "^9.1.0",
@@ -21,12 +28,26 @@
     "serve": "rollup --config rollup.serve.js -w",
     "build": "npm run format && npm run docs && rollup --config rollup.build.js",
     "docs": "./node_modules/.bin/jsdoc2md ./src/*.js > documentation.md",
-    "test": "npm run build && node test/test.js",
+    "test": "./node_modules/mocha/bin/mocha --require babel-core/register --recursive './{modules,src,test}/*.{spec,test}.*'",
     "format": "./node_modules/standard/bin/cmd.js --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.comcast.com/tmulle204/truncate-title.git"
+  },
+  "config": {
+    "ports": {
+      "serve": 10001,
+      "test": 10002
+    }
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "engines": {
+    "node": ">= 8.6"
   },
   "license": "ISC",
   "files": [

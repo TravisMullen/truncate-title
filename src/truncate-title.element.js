@@ -73,6 +73,25 @@ class TruncateTitle extends HTMLElement {
    */
 
   /**
+   * Signal that truncation has been completed.
+   *
+   */
+  _completeTruncate () {
+    /** @todo - handle this more gracefully so it does not override a custom opacity */
+    this.style.opacity = 1
+    this.dispatchEvent(new CustomEvent('truncate-complete', {
+      detail: {
+        before: this.getAttribute('title'),
+        after: this.textContent,
+        width: this.parentElement.clientWidth
+      },
+      bubbles: true,
+      composed: true,
+      cancelable: true
+    }))
+  }
+
+  /**
    * Animate removal or addition of characters depending on parent's size.
    *
    * @param {string} title Text be truncated
@@ -93,11 +112,12 @@ class TruncateTitle extends HTMLElement {
         if (checkFn(this)) {
           this._rAF = window.requestAnimationFrame(rAFhandler)
         } else {
-          this.style.opacity = 1
+          this._completeTruncate()
         }
       }
       this._rAF = window.requestAnimationFrame(rAFhandler)
     } else {
+      /** @note restore opacity if truncation is not required */
       this.style.opacity = 1
     }
   }

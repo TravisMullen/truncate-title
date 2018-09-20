@@ -1,7 +1,6 @@
 import pkg from './package.json'
 import build from './rollup.build.js'
 import serve from 'rollup-plugin-serve'
-import livereload from 'rollup-plugin-livereload'
 
 export default {
   input: build.input,
@@ -9,12 +8,10 @@ export default {
   plugins: [
     ...build.plugins,
     serve({
-      port: pkg.config.ports.serve,
-      open: true,
-      contentBase: ['', 'dist']
-    }),
-    livereload({
-      watch: ['src', 'index.html']
+      port: pkg.config.ports.test,
+      // 'test' must be first so rollup will grab that index.html
+      // and not the demo index.html in ''
+      contentBase: ['test', '', 'dist']
     })
   ]
 }
