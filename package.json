@@ -6,6 +6,7 @@
   "module": "dist/truncate-title.js",
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.1.0",
+    "enumeration-class": "git+https://github.com/TravisMullen/enumeration-class.git",
     "jsdoc-to-markdown": "^4.0.1",
     "resize-observer-polyfill": "^1.5.0",
     "rollup": "^0.64.0",
@@ -24,9 +25,10 @@
     "format": "./node_modules/standard/bin/cmd.js --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
   },
   "repository": {
-    "type" : "git",
-    "url" : "git+https://github.comcast.com/tmulle204/truncate-title.git"
+    "type": "git",
+    "url": "git+https://github.comcast.com/tmulle204/truncate-title.git"
   },
+  "license": "ISC",
   "files": [
     "dist"
   ]

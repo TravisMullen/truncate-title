@@ -1,9 +1,6 @@
 ## Classes
 
 <dl>
-<dt><a href="#Enumeration">Enumeration</a></dt>
-<dd><p>Enumeration - Immutable key value pairs.</p>
-</dd>
 <dt><a href="#TruncateTitle">TruncateTitle</a> ⇐ <code>HTMLElement</code></dt>
 <dd></dd>
 </dl>
@@ -15,24 +12,6 @@
 <dd><p>HTML implementation name</p>
 </dd>
 </dl>
-
-<a name="Enumeration"></a>
-
-## Enumeration
-Enumeration - Immutable key value pairs.
-
-**Kind**: global class  
-**Link**: https://bitbucket.org/snippets/travismullen/6egzxX/enumeration.git  
-<a name="Enumeration+has"></a>
-
-### enumeration.has(key) ⇒ <code>boolean</code>
-Is a valid key/value of instance.
-
-**Kind**: instance method of [<code>Enumeration</code>](#Enumeration)  
-
-| Param | Type |
-| --- | --- |
-| key | <code>string</code> | 
 
 <a name="TruncateTitle"></a>
 

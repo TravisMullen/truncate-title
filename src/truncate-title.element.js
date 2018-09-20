@@ -1,6 +1,6 @@
 /* global HTMLElement:false */
 
-import Enumeration from './enumeration-class.js'
+import Enumeration from 'enumeration-class'
 import ResizeObserver from 'resize-observer-polyfill'
 
 /** HTML implementation name */

@@ -37,9 +37,7 @@ To truncate in the middle of the text set `title-break` to `center`. The default
 - [ ] Better Readme.md with Examples
 - [ ] Use CSS Property to set default animation styles.
 - [ ] Set-up NPM for inclusion into other projects.
-- [ ] Seperate functions into multiple files?
-- [ ] Remove .travis.yml
-- [ ] Update LICENSE
+- [ ] Seperate functions into multiple files.
 
 
 
