@@ -1,9 +1,9 @@
 {
-  "name": "truncation-title",
+  "name": "truncate-title",
   "version": "1.0.0",
   "description": "Custom HTMLElement for truncating text. Extends Abbr tag.",
-  "main": "dist/truncation-title.js",
-  "module": "dist/truncation-title.js",
+  "main": "dist/truncate-title.js",
+  "module": "dist/truncate-title.js",
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.1.0",
     "jsdoc-to-markdown": "^4.0.1",
@@ -22,6 +22,10 @@
     "docs": "./node_modules/.bin/jsdoc2md ./src/*.js > documentation.md",
     "test": "npm run build && node test/test.js",
     "format": "./node_modules/standard/bin/cmd.js --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "git+https://github.comcast.com/tmulle204/truncate-title.git"
   },
   "files": [
     "dist"
