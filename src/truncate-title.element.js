@@ -1,4 +1,4 @@
-/* global HTMLElement:false */
+/* global HTMLElement:false, CustomEvent: false */
 
 import Enumeration from 'enumeration-class'
 import ResizeObserver from 'resize-observer-polyfill'
@@ -66,6 +66,8 @@ class TruncateTitle extends HTMLElement {
      * State of last detected resize event.
      */
     this._hasChanged = {}
+
+    /** create wrapper element */
   }
 
   /**
@@ -139,6 +141,10 @@ class TruncateTitle extends HTMLElement {
   // ========================================================================== //
 
   connectedCallback () {
+    if (this.parentElement) {
+      console.dir(this.parentElement)
+    }
+
     /**
      * Change the default browser styles for `abbr` tag.
      */
@@ -154,6 +160,11 @@ class TruncateTitle extends HTMLElement {
     this.style.opacity = 0
     /** @todo Map transitionTime to a CSS custom property */
     this.style.transition = 'opacity .3s'
+
+    // * @todo Error on 1) if body is parent, if body has
+    // console.dir(this.parentElement)
+    // console.log('parentElement.style.whiteSpace', this.parentElement.style.whiteSpace)
+    // console.log('parentElement.style.boxSizing', this.parentElement.style.boxSizing)
 
     /**
      * ResizeObserver callback function for handling truncation logic.
@@ -174,7 +185,7 @@ class TruncateTitle extends HTMLElement {
          * Be sure there was actually a change.
          * @todo test that is required to reduce events
          */
-        if (this._hasChanged[entry] === width) { continue }
+        // if (this._hasChanged[entry] === width) { continue }
 
         /** Determine if parent is less than the inner text size. */
         if (!TruncateTitle.shouldAugment(this)) {

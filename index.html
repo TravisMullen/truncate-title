@@ -22,6 +22,11 @@
   <h1>Truncate Title</h1>
   <h2>Resize browser window to see truncation in action.</h2>
   <code>title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."</code>
+
+  <div class="stage">
+    <abbr is="truncate-title" id="fillme"></abbr>
+  </div>
+
   <div class="stage">
     <abbr is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></abbr>
   </div>
@@ -32,6 +37,9 @@
   </div>
   <code>title-break="center"</code>
   
+  <h3>Window as parent.</h3>
+  <abbr is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui." title-break="end"></abbr>
+
   <h2>Truncate Events</h2>
   <ol></ol>
 
@@ -46,6 +54,9 @@
         list.appendChild(item)
       })
     }
+    setTimeout(() => {
+      document.getElementById('fillme').title = 'Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui. Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui. Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.'
+    }, 1000)
   </script>
   <noscript>
     You need javascript enabled, fam.

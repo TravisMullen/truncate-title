@@ -10,10 +10,13 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
+    "camel-case": "^3.0.0",
     "chai": "^4.1.2",
     "enumeration-class": "git+https://github.com/TravisMullen/enumeration-class.git",
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
+    "param-case": "^2.1.1",
+    "pascal-case": "^2.0.1",
     "puppeteer": "^1.8.0",
     "resize-observer-polyfill": "^1.5.0",
     "rollup": "^0.64.0",
@@ -22,14 +25,17 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-serve": "^0.4.2",
     "snazzy": "^7.1.1",
-    "standard": "^11.0.1"
+    "standard": "^11.0.1",
+    "swap-global": "git+https://github.com/TravisMullen/swap-global.git"
   },
   "scripts": {
     "serve": "rollup --config rollup.serve.js -w",
     "build": "npm run format && npm run docs && rollup --config rollup.build.js",
-    "docs": "./node_modules/.bin/jsdoc2md ./src/*.js > documentation.md",
-    "test": "./node_modules/mocha/bin/mocha --require babel-core/register --recursive './{modules,src,test}/*.{spec,test}.*'",
-    "format": "./node_modules/standard/bin/cmd.js --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
+    "docs": "jsdoc2md ./src/*.js > documentation.md",
+    "pretest": "npm run format",
+    "test": "mocha --reporter spec --require babel-core/register ./test/bootstrap.js --recursive './{modules,src,test}/*.{spec,test}.*'",
+    "test:serve": "rollup --config rollup.test.js",
+    "format": "standard --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
   },
   "repository": {
     "type": "git",
