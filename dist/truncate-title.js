@@ -1185,10 +1185,6 @@ class TruncateTitle extends HTMLElement {
   // ========================================================================== //
 
   connectedCallback () {
-    if (this.parentElement) {
-      console.dir(this.parentElement);
-    }
-
     /**
      * Change the default browser styles for `abbr` tag.
      */
@@ -1204,11 +1200,6 @@ class TruncateTitle extends HTMLElement {
     this.style.opacity = 0;
     /** @todo Map transitionTime to a CSS custom property */
     this.style.transition = 'opacity .3s';
-
-    // * @todo Error on 1) if body is parent, if body has
-    // console.dir(this.parentElement)
-    // console.log('parentElement.style.whiteSpace', this.parentElement.style.whiteSpace)
-    // console.log('parentElement.style.boxSizing', this.parentElement.style.boxSizing)
 
     /**
      * ResizeObserver callback function for handling truncation logic.
