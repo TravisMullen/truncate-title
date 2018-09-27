@@ -27,10 +27,7 @@ const opts = {
 let testServer
 // expose variables
 before(async () => {
-  // testServer = startServer('test:serve')
-  if (!testServer) {
-    testServer = startServer('test:serve')
-  }
+  testServer = startServer('test:serve')
 
   // shared browser session
   swap('browser', await puppeteer.launch(opts))
