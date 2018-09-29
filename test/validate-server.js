@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-/* global page: false, assert: false */
+/* global page: false, expect: false */
 
 const validateServer = (serverPort = 10001) => {
   describe('Validate Testing Server', function () {
@@ -33,8 +33,7 @@ const validateServer = (serverPort = 10001) => {
         `)
         process.exit(0)
       }
-      assert.strictEqual(response.status(), 200)
-      // expect([200, 304]).to.include(response.status())
+      expect([200, 304]).to.include(response.status())
     })
   })
 }

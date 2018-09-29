@@ -167,7 +167,15 @@ ventriloquist.addMethod = (type) => {
   }
   // getters
   ventriloquist[type] = async (elementHandle, selector = false) => {
-    const handle = await page.evaluateHandle((el, prop, sel) => sel ? el.shadowRoot.querySelector(sel)[prop] : el.shadowRoot[prop], elementHandle, camelCase(type), selector)
+    const handle = await page.evaluateHandle((el, prop, sel) => {
+      let scope
+      if (el.shadowRoot) {
+        scope = el.shadowRoot
+      } else {
+        scope = el
+      }
+      return sel ? scope.querySelector(sel)[prop] : scope[prop]
+    }, elementHandle, camelCase(type), selector)
     const result = await handle.jsonValue()
     await handle.dispose()
     return result
@@ -175,6 +183,7 @@ ventriloquist.addMethod = (type) => {
   // setters for property in format of setType
   let setter = `set${methodName}`
   ventriloquist[setter] = async (elementHandle, testValue) => {
+    /** @todo handle property changes that don't reset reference */
     const handle = await page.evaluateHandle((el, prop, update) => (el[prop] = update), elementHandle, camelCase(type), testValue)
     const result = await handle.jsonValue()
     await handle.dispose()

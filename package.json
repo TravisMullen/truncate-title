@@ -30,12 +30,13 @@
   },
   "scripts": {
     "serve": "rollup --config rollup.serve.js -w",
-    "build": "npm run format && npm run docs && rollup --config rollup.build.js",
+    "prebuild": "npm run lint && npm run docs",
+    "build": "rollup --config rollup.build.js",
     "docs": "jsdoc2md ./src/*.js > documentation.md",
-    "pretest": "npm run format",
+    "pretest": "npm run lint",
     "test": "mocha --reporter spec --require babel-core/register ./test/bootstrap.js --recursive './{modules,src,test}/*.{spec,test}.*'",
     "test:serve": "rollup --config rollup.test.js",
-    "format": "standard --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
+    "lint": "standard --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
   },
   "repository": {
     "type": "git",
