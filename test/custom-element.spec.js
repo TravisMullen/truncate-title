@@ -21,7 +21,7 @@ service.addMethod('trigger')
 service.addMethod('headline')
 service.addMethod('defaults')
 
-describe(`Example test cases for custom elements using ${CUSTOM_ELEMENT}`, function () {
+describe(`Example test cases for custom elements ${CUSTOM_ELEMENT}`, function () {
   // `timeout()` must be inside standard (non-arrow) function
   // so `this` is correct
   this.timeout(MAX_TIMEOUT)
@@ -30,7 +30,7 @@ describe(`Example test cases for custom elements using ${CUSTOM_ELEMENT}`, funct
   beforeEach(async () => {
     // await service.resizeElement(WRAPPER_SELELCTOR, 700)
     // create a clean element instance.
-    customElementCreate = await service.createCustomElementHandle(CUSTOM_ELEMENT, EXTENDED_ELEMENT, WRAPPER_SELELCTOR, {
+    customElementCreate = await service.createCustomElementHandle(CUSTOM_ELEMENT, EXTENDED_ELEMENT, null, {
       id: TEST_ELEMENT_ID
     })
     // wait for it to render in the DOM.
@@ -41,7 +41,7 @@ describe(`Example test cases for custom elements using ${CUSTOM_ELEMENT}`, funct
 
   afterEach(async () => {
     // clean up mess.
-    await service.removeCustomElementHandle(customElementCreate, WRAPPER_SELELCTOR)
+    await service.removeCustomElementHandle(customElementCreate)
     await elementHandle.dispose()
     await customElementCreate.dispose()
   })

@@ -6,10 +6,6 @@
   "module": "dist/truncate-title.js",
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.1.0",
-    "babel-core": "^6.26.3",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "camel-case": "^3.0.0",
     "chai": "^4.1.2",
     "enumeration-class": "git+https://github.com/TravisMullen/enumeration-class.git",
