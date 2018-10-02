@@ -31,6 +31,7 @@
         * [.textContent](#TruncateTitle+textContent)
         * [.contentWidth](#TruncateTitle+contentWidth)
         * [._resizeObserver](#TruncateTitle+_resizeObserver)
+        * [._completeTruncate()](#TruncateTitle+_completeTruncate)
         * [._doTruncate(title, grow)](#TruncateTitle+_doTruncate)
         * [._updateContent(newValue)](#TruncateTitle+_updateContent)
     * _static_
@@ -117,6 +118,12 @@ ResizeObserver callback function for handling truncation logic.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**: https://wicg.github.io/ResizeObserver/  
+<a name="TruncateTitle+_completeTruncate"></a>
+
+### truncateTitle._completeTruncate()
+Signal that truncation has been completed.
+
+**Kind**: instance method of [<code>TruncateTitle</code>](#TruncateTitle)  
 <a name="TruncateTitle+_doTruncate"></a>
 
 ### truncateTitle._doTruncate(title, grow)

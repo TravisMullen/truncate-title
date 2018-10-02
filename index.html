@@ -6,6 +6,10 @@
   <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer></script>
   <script type="module" src="./dist/truncate-title.js"></script>
   <style>
+    body {
+      /* avoid truncating when a scroll appears */
+      overflow-y: scroll;
+    }
     .stage {
       margin-top: 1rem;
       padding: 1rem;
@@ -18,6 +22,11 @@
   <h1>Truncate Title</h1>
   <h2>Resize browser window to see truncation in action.</h2>
   <code>title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."</code>
+
+  <div class="stage">
+    <abbr is="truncate-title" id="fillme"></abbr>
+  </div>
+
   <div class="stage">
     <abbr is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></abbr>
   </div>
@@ -27,7 +36,28 @@
     <abbr is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui." title-break="center"></abbr>
   </div>
   <code>title-break="center"</code>
+  
+  <h3>Window as parent.</h3>
+  <abbr is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui." title-break="end"></abbr>
 
+  <h2>Truncate Events</h2>
+  <ol></ol>
+
+  <script>
+    const targets = document.querySelectorAll('[is="truncate-title"]')
+    for (const elm of targets) {
+      elm.addEventListener('truncate-complete', ({ detail }) => {
+        console.log('detail', detail)
+        const list = document.querySelector('ol')
+        const item = document.createElement('li')
+        item.innerHTML = `<strong>Width</strong>: ${detail.width}, <strong>After</strong>: ${detail.after}`
+        list.appendChild(item)
+      })
+    }
+    setTimeout(() => {
+      document.getElementById('fillme').title = 'Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui. Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui. Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.'
+    }, 1000)
+  </script>
   <noscript>
     You need javascript enabled, fam.
   </noscript>

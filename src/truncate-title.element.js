@@ -1,4 +1,4 @@
-/* global HTMLElement:false */
+/* global HTMLElement:false, CustomEvent: false */
 
 import Enumeration from 'enumeration-class'
 import ResizeObserver from 'resize-observer-polyfill'
@@ -66,11 +66,32 @@ class TruncateTitle extends HTMLElement {
      * State of last detected resize event.
      */
     this._hasChanged = {}
+
+    /** create wrapper element */
   }
 
   /**
    * Functions for instance.
    */
+
+  /**
+   * Signal that truncation has been completed.
+   *
+   */
+  _completeTruncate () {
+    /** @todo - handle this more gracefully so it does not override a custom opacity */
+    this.style.opacity = 1
+    this.dispatchEvent(new CustomEvent('truncate-complete', {
+      detail: {
+        before: this.getAttribute('title'),
+        after: this.textContent,
+        width: this.parentElement.clientWidth
+      },
+      bubbles: true,
+      composed: true,
+      cancelable: true
+    }))
+  }
 
   /**
    * Animate removal or addition of characters depending on parent's size.
@@ -93,11 +114,12 @@ class TruncateTitle extends HTMLElement {
         if (checkFn(this)) {
           this._rAF = window.requestAnimationFrame(rAFhandler)
         } else {
-          this.style.opacity = 1
+          this._completeTruncate()
         }
       }
       this._rAF = window.requestAnimationFrame(rAFhandler)
     } else {
+      /** @note restore opacity if truncation is not required */
       this.style.opacity = 1
     }
   }
@@ -154,7 +176,7 @@ class TruncateTitle extends HTMLElement {
          * Be sure there was actually a change.
          * @todo test that is required to reduce events
          */
-        if (this._hasChanged[entry] === width) { continue }
+        // if (this._hasChanged[entry] === width) { continue }
 
         /** Determine if parent is less than the inner text size. */
         if (!TruncateTitle.shouldAugment(this)) {
