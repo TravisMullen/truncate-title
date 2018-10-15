@@ -52,5 +52,15 @@
   "license": "ISC",
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "esm",
+    "module",
+    "custom-element",
+    "customelement",
+    "abbr",
+    "htmlelement",
+    "truncation",
+    "es6"
   ]
 }
