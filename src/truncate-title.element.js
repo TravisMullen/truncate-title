@@ -1,5 +1,6 @@
 /* global HTMLElement:false, CustomEvent: false */
 
+import { version } from '../package.json'
 import Enumeration from 'enumeration-class'
 import ResizeObserver from 'resize-observer-polyfill'
 
@@ -22,12 +23,25 @@ const TYPES = new Enumeration({
 /**
  * Custom Element to truncate text within an `abbr` tag.
  *
+ * @customElement
+ * @extends abbr
  * @class TruncateTitle
  * @augments HTMLElement
  */
 class TruncateTitle extends HTMLElement {
   constructor () {
     super()
+    /**
+     * Version
+     * @readonly
+     */
+    Object.defineProperty(this, 'version', {
+      enumerable: false,
+      configurable: false,
+      writable: false,
+      value: version
+    })
+
     /**
      * Truncation type.
      * @default
@@ -202,6 +216,13 @@ class TruncateTitle extends HTMLElement {
      * Observe the parent HTMLElement of this instance.
      */
     this._resizeObserver.observe(this.parentElement)
+
+    /**
+     * Set separator value. Only on first render, not observed.
+     */
+    if (this.hasAttribute('separator')) {
+      this.separator = this.getAttribute('separator')
+    }
 
     /**
      * Set title value. Do first steps for truncation.

@@ -2,6 +2,7 @@
 /* global page: false, expect: false */
 
 import service from 'ventrilo'
+import { version } from '../package.json'
 
 const CUSTOM_ELEMENT = 'abbr'
 const EXTENDED_ELEMENT = 'truncate-title'
@@ -15,8 +16,10 @@ let customElementCreate
 let elementHandle
 
 // define custom properties/attributes
+service.addMethod('title')
 service.addMethod('titleBreak')
 service.addMethod('separator')
+service.addMethod('version')
 
 describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
   this.timeout(MAX_TIMEOUT)
@@ -26,7 +29,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
     await service.resizeElement(WRAPPER_SELELCTOR, 700)
     // create a clean element instance.
     customElementCreate = await service.createCustomElementHandle(CUSTOM_ELEMENT, EXTENDED_ELEMENT, WRAPPER_SELELCTOR, {
-      id: TEST_ELEMENT_ID
+      properties: {
+        id: TEST_ELEMENT_ID
+      }
     })
     // wait for it to render in the DOM.
     await page.waitFor(CUSTOM_ELEMENT)
@@ -57,11 +62,28 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
   })
 
   describe(`display as expected for initial page render [using defaults]`, () => {
+    it(`should have version as property`, async () => {
+      const testValue = `${new Date()} Sartorial jean shorts actually.`
+
+      await service.setAttributeTitle(elementHandle, testValue)
+      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.version)
+
+      // version from package.json
+      expect(textContent).to.equal(version)
+    })
+    it(`should not be able to change version`, async () => {
+      const testValue = `${new Date()} Sartorial jean shorts actually.`
+
+      await service.setVersion(elementHandle, testValue)
+      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.version)
+
+      expect(textContent).not.to.equal(testValue)
+    })
     it(`should render title attribute as textContent`, async () => {
       const testValue = `${new Date()} Sartorial jean shorts actually.`
 
       await service.setAttributeTitle(elementHandle, testValue)
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
 
       expect(textContent).to.equal(testValue)
     })
@@ -70,7 +92,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       const testValue = `${new Date()} Sartorial jean shorts actually.`
 
       await service.setTitle(elementHandle, testValue)
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
 
       expect(textContent).to.equal(testValue)
     })
@@ -115,7 +137,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
       const textContentLength = await page.$eval(CUSTOM_ELEMENT, e => e.textContent.length)
       // remove 2 chars, separator + space
       const augmented = textContent.substring(0, textContentLength - 2)
@@ -172,7 +194,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       expect(elementWidth).to.be.below(parentWidth)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
 
       expect(textContent).to.equal(testValue)
 
@@ -214,13 +236,48 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
 
       expect(textContent).to.include(testSeparator)
 
       await ce.dispose()
     })
-    it(`should not render from attribute update`, async () => {
+    it(`should render from attribute on initial declaration`, async () => {
+      const testValue = `${new Date()} Sartorial jean shorts actually, tattooed kickstarter direct trade try-hard woke four dollar toast truffaut. Green juice keffiyeh four dollar toast hot chicken pabst typewriter scenester before they sold out banh mi roof party bushwick ugh ennui edison bulb echo park. Street art edison bulb heirloom occupy health goth, cloud bread af small batch deep v crucifix intelligentsia try-hard. Wayfarers hexagon chartreuse, selvage lo-fi coloring book vape. Raw denim marfa taiyaki photo booth.`
+      const testSeparator = '+'
+
+      // remove before because we want to create a new element with an attribute
+      await service.removeCustomElementHandle(customElementCreate, WRAPPER_SELELCTOR)
+      await elementHandle.dispose()
+      await customElementCreate.dispose()
+
+      // create new custom element with "separator" attribute
+      customElementCreate = await service.createCustomElementHandle(CUSTOM_ELEMENT, EXTENDED_ELEMENT, WRAPPER_SELELCTOR, {
+        attributes: {
+          id: TEST_ELEMENT_ID,
+          separator: testSeparator
+        }
+      })
+      // wait for it to render in the DOM.
+      await page.waitFor(CUSTOM_ELEMENT)
+      // grab the rendered element for test manipulation.
+      elementHandle = await service.customElementHandle(CUSTOM_ELEMENT)
+
+      const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
+
+      await service.setAttributeSeparator(elementHandle, testSeparator)
+      await service.setTitle(elementHandle, testValue)
+
+      await service.waitForCustomEvent(MAX_TIMEOUT)
+
+      const textContent = await service.getTextContent(elementHandle)
+
+      expect(textContent).to.include(testSeparator)
+
+      await ce.dispose()
+    })
+
+    it(`should not rerender from attribute update (not observed attribute)`, async () => {
       const testValue = `${new Date()} Sartorial jean shorts actually, tattooed kickstarter direct trade try-hard woke four dollar toast truffaut. Green juice keffiyeh four dollar toast hot chicken pabst typewriter scenester before they sold out banh mi roof party bushwick ugh ennui edison bulb echo park. Street art edison bulb heirloom occupy health goth, cloud bread af small batch deep v crucifix intelligentsia try-hard. Wayfarers hexagon chartreuse, selvage lo-fi coloring book vape. Raw denim marfa taiyaki photo booth.`
       const testSeparator = '+'
       const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
@@ -230,9 +287,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
 
-      expect(textContent).to.not.include(testSeparator)
+      expect(textContent).not.to.include(testSeparator)
 
       await ce.dispose()
     })
@@ -243,7 +300,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       const testValue = `${new Date()} Sartorial jean shorts actually.`
 
       await service.setTitle(elementHandle, testValue)
-      const defaultTextContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const defaultTextContent = await service.getTextContent(elementHandle)
 
       expect(defaultTextContent).to.equal(testValue)
 
@@ -254,7 +311,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       await service.setTitle(elementHandle, updatedValue)
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
       const textContentLength = await page.$eval(CUSTOM_ELEMENT, e => e.textContent.length)
       // remove 2 chars, separator + space
       const augmented = textContent.substring(0, textContentLength - 2)
@@ -268,7 +325,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       const testValue = `${new Date()} Sartorial jean shorts actually.`
 
       await service.setAttributeTitle(elementHandle, testValue)
-      const defaultTextContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const defaultTextContent = await service.getTextContent(elementHandle)
 
       expect(defaultTextContent).to.equal(testValue)
 
@@ -279,7 +336,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       await service.setAttributeTitle(elementHandle, updatedValue)
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
       const textContentLength = await page.$eval(CUSTOM_ELEMENT, e => e.textContent.length)
       // remove 2 chars, separator + space
       const augmented = textContent.substring(0, textContentLength - 2)
@@ -300,7 +357,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       await service.setTitle(elementHandle, testValue)
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
       const textContentSeparatorIndex = await page.$eval(CUSTOM_ELEMENT, e => (
         e.textContent.indexOf(e.separator)
       ))
@@ -324,7 +381,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       await service.setTitle(elementHandle, testValue)
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
       const textContentSeparatorIndex = await page.$eval(CUSTOM_ELEMENT, e => {
         const content = e.textContent
         return content.indexOf(e.separator)
@@ -351,7 +408,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       await service.setTitle(elementHandle, testValue)
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
-      const textContent = await page.$eval(CUSTOM_ELEMENT, e => e.textContent)
+      const textContent = await service.getTextContent(elementHandle)
       const textContentLength = await page.$eval(CUSTOM_ELEMENT, e => e.textContent.length)
       // remove 2 chars, separator + space
       const augmented = textContent.substring(0, textContentLength - 2)

@@ -1,7 +1,7 @@
 ## Classes
 
 <dl>
-<dt><a href="#TruncateTitle">TruncateTitle</a> ⇐ <code>HTMLElement</code></dt>
+<dt><a href="#TruncateTitle">TruncateTitle</a> ⇐ <code>abbr</code></dt>
 <dd></dd>
 </dl>
 
@@ -15,11 +15,12 @@
 
 <a name="TruncateTitle"></a>
 
-## TruncateTitle ⇐ <code>HTMLElement</code>
+## TruncateTitle ⇐ <code>abbr</code>
 **Kind**: global class  
-**Extends**: <code>HTMLElement</code>  
+**Extends**: <code>abbr</code>, <code>HTMLElement</code>  
+**Customelement**:   
 
-* [TruncateTitle](#TruncateTitle) ⇐ <code>HTMLElement</code>
+* [TruncateTitle](#TruncateTitle) ⇐ <code>abbr</code>
     * [new TruncateTitle()](#new_TruncateTitle_new)
     * _instance_
         * [.truncationType](#TruncateTitle+truncationType)
