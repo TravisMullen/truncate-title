@@ -1,6 +1,6 @@
 {
   "name": "truncate-title",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Custom HTMLElement for truncating text. Extends Abbr tag.",
   "main": "dist/truncate-title.registered.js",
   "module": "dist/truncate-title.esm.js",
@@ -32,10 +32,15 @@
     "test:serve": "rollup --config rollup.test.js",
     "lint": "standard --fix './{src,test}/**/*.{js,mjs}' --verbose | snazzy"
   },
+  "homepage": "https://github.com/TravisMullen/truncate-title#readme",
+  "bugs": {
+    "url": "https://github.com/TravisMullen/truncate-title/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.comcast.com/tmulle204/truncate-title.git"
+    "url": "git+https://github.com/TravisMullen/truncate-title.git"
   },
+  "author": "Travis Mullen <travis@travismullen.com> (http://travismullen.com/)",
   "config": {
     "ports": {
       "serve": 10001,
