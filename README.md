@@ -31,8 +31,18 @@ The default `{ "main": "dist/truncate-title.registered.js" }` module will regist
 
 For the unregisted version use `{ "module": "dist/truncate-title.esm.js" }`, and function `registerCustomElement` will be availible to register using a custom name or the default if no argument present.
 
+## Custom Event
 
+CustomEvent `truncate-complete` is emmited everytime a truncation event is complete. 
 
+**`detail` contains the following info:**
+```js
+detail: { 
+  before: <string>, // pre augmented title
+  after: <string>, // post augmented title,
+  width: <number> // width it was truncated to be less than
+}
+```
 
 ## Demo
 
