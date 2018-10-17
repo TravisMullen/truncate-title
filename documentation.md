@@ -13,6 +13,14 @@
 </dd>
 </dl>
 
+## Functions
+
+<dl>
+<dt><a href="#registerCustomElement">registerCustomElement()</a></dt>
+<dd><p>Define in CustomElementRegistry.</p>
+</dd>
+</dl>
+
 <a name="TruncateTitle"></a>
 
 ## TruncateTitle ⇐ <code>abbr</code>
@@ -228,3 +236,9 @@ Availible truncation types.
 HTML implementation name
 
 **Kind**: global constant  
+<a name="registerCustomElement"></a>
+
+## registerCustomElement()
+Define in CustomElementRegistry.
+
+**Kind**: global function  

@@ -65,8 +65,9 @@ class TruncateTitle extends HTMLElement {
 
     /**
      * Character added to truncated text.
+     * Can be changed using attribute `separator`
+     * on `connectedCallback` but is not observed.
      * @default
-     * @todo Make this an attribute?
      */
     this.separator = '\u2026'
 
@@ -178,7 +179,7 @@ class TruncateTitle extends HTMLElement {
      */
     this._resizeObserver = new ResizeObserver((entries, observer) => {
       for (const entry of entries) {
-        const {width} = entry.contentRect
+        const { width } = entry.contentRect
 
         /**
          * Cancel any existing _doTruncate.
@@ -370,4 +371,8 @@ Object.defineProperty(TruncateTitle, 'is', {
 /**
  * Define in CustomElementRegistry.
  */
-window.customElements.define(TruncateTitle.is, TruncateTitle, {extends: 'abbr'})
+const registerCustomElement = (elementName = TruncateTitle.is) => {
+  window.customElements.define(elementName, TruncateTitle, { extends: 'abbr' })
+}
+
+export { TruncateTitle as default, registerCustomElement }

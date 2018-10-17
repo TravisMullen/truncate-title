@@ -23,6 +23,15 @@ To truncate in the middle of the text set `title-break` to `center`. The default
 <abbr is="truncate-title" title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui." title-break="tail">Medium Lorem ipsum dolor a … yl drinking vinegar ennui.</abbr>
 ```
 
+## Modules
+
+The default `{ "main": "dist/truncate-title.registered.js" }` module will register the Custom Element using `customElements.define`.
+
+For the unregisted version use `{ "module": "dist/truncate-title.esm.js" }`, and function `registerCustomElement` will be availible to register using a custom name or the default if no argument present.
+
+
+
+
 ## Demo
 
 `npm run serve`
