@@ -88,13 +88,11 @@ Size of full text node (inner content) as rendered in DOM.
 
 ### truncateTitle.separator
 Character added to truncated text.
+Can be changed using attribute `separator`
+on `connectedCallback` but is not observed.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **Default**: <code>…</code>  
-**Todo**
-
-- [ ] Make this an attribute?
-
 <a name="TruncateTitle+_increment"></a>
 
 ### truncateTitle._increment
