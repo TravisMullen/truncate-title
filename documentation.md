@@ -5,14 +5,6 @@
 <dd></dd>
 </dl>
 
-## Constants
-
-<dl>
-<dt><a href="#elementRegistryName">elementRegistryName</a></dt>
-<dd><p>HTML implementation name</p>
-</dd>
-</dl>
-
 ## Functions
 
 <dl>
@@ -27,6 +19,7 @@
 **Kind**: global class  
 **Extends**: <code>HTMLElement</code>  
 **Customelement**:   
+**Demo**: /index.html  
 
 * [TruncateTitle](#TruncateTitle) ⇐ <code>HTMLElement</code>
     * [new TruncateTitle()](#new_TruncateTitle_new)
@@ -53,7 +46,10 @@
 <a name="new_TruncateTitle_new"></a>
 
 ### new TruncateTitle()
+# Truncate Title
 Custom Element to truncate text within an `abbr` tag.
+Declare full text as `title` attribute,
+and will auto generate `textContent`.
 
 <a name="TruncateTitle+truncationType"></a>
 
@@ -62,6 +58,12 @@ Truncation type.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**: attributeChangedCallback  
+**Properties**
+
+| Type |
+| --- |
+| <code>string</code> | 
+
 <a name="TruncateTitle+_rAF"></a>
 
 ### truncateTitle._rAF
@@ -73,16 +75,28 @@ requestAnimationFrame reference for cancellation.
 - _doTruncate
 - disconnectedCallback
 
+**Properties**
+
+| Type |
+| --- |
+| <code>number</code> | 
+
 <a name="TruncateTitle+contentWidth"></a>
 
 ### truncateTitle.contentWidth
-Size of full text node (inner content) as rendered in DOM.
+Size, in pixels, of full text node (inner content) as rendered in DOM.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**
 
 - _updateContent
 - shouldAugment
+
+**Properties**
+
+| Type |
+| --- |
+| <code>number</code> | 
 
 <a name="TruncateTitle+separator"></a>
 
@@ -93,6 +107,12 @@ on `connectedCallback` but is not observed.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **Default**: <code>…</code>  
+**Properties**
+
+| Type |
+| --- |
+| <code>string</code> | 
+
 <a name="TruncateTitle+_increment"></a>
 
 ### truncateTitle._increment
@@ -100,12 +120,24 @@ Amount of characters removed from text.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **Default**: <code>2</code>  
+**Properties**
+
+| Type |
+| --- |
+| <code>number</code> | 
+
 <a name="TruncateTitle+_hasChanged"></a>
 
 ### truncateTitle._hasChanged
 State of last detected resize event.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
+**Properties**
+
+| Type |
+| --- |
+| <code>Object</code> | 
+
 <a name="TruncateTitle+textContent"></a>
 
 ### truncateTitle.textContent
@@ -228,12 +260,6 @@ Availible truncation types.
 - TruncateTitle.cutCenter
 - TruncateTitle.cutEnd
 
-<a name="elementRegistryName"></a>
-
-## elementRegistryName
-HTML implementation name
-
-**Kind**: global constant  
 <a name="registerCustomElement"></a>
 
 ## registerCustomElement()

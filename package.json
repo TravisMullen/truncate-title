@@ -5,7 +5,7 @@
   "main": "dist/truncate-title.registered.js",
   "module": "dist/truncate-title.esm.js",
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "^2.1.0",
+    "@webcomponents/webcomponentsjs": "^2.1.3",
     "enumeration-class": "^1.0.0",
     "jsdoc-to-markdown": "^4.0.1",
     "resize-observer-polyfill": "^1.5.0",

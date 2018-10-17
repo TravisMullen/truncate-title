@@ -1,11 +1,8 @@
 /* global HTMLElement:false, CustomEvent: false */
 
-import { version } from '../package.json'
+import { name, version } from '../package.json'
 import Enumeration from 'enumeration-class'
 import ResizeObserver from 'resize-observer-polyfill'
-
-/** HTML implementation name */
-const elementRegistryName = 'truncate-title'
 
 /**
  * Availible truncation types.
@@ -21,17 +18,22 @@ const TYPES = new Enumeration({
 })
 
 /**
+ * # Truncate Title
  * Custom Element to truncate text within an `abbr` tag.
+ * Declare full text as `title` attribute,
+ * and will auto generate `textContent`.
  *
  * @customElement
  * @class TruncateTitle
  * @augments HTMLElement
+ * @demo /index.html
  */
 class TruncateTitle extends HTMLElement {
   constructor () {
     super()
     /**
      * Version
+     * @member {number}
      * @readonly
      */
     Object.defineProperty(this, 'version', {
@@ -43,6 +45,7 @@ class TruncateTitle extends HTMLElement {
 
     /**
      * Truncation type.
+     * @member {string}
      * @default
      * @see attributeChangedCallback
      */
@@ -50,13 +53,15 @@ class TruncateTitle extends HTMLElement {
 
     /**
      * requestAnimationFrame reference for cancellation.
+     * @member {number}
      * @see _doTruncate
      * @see disconnectedCallback
      */
     this._rAF = null
 
     /**
-     * Size of full text node (inner content) as rendered in DOM.
+     * Size, in pixels, of full text node (inner content) as rendered in DOM.
+     * @member {number}
      * @see _updateContent
      * @see shouldAugment
      */
@@ -66,18 +71,21 @@ class TruncateTitle extends HTMLElement {
      * Character added to truncated text.
      * Can be changed using attribute `separator`
      * on `connectedCallback` but is not observed.
+     * @member {string}
      * @default
      */
     this.separator = '\u2026'
 
     /**
      * Amount of characters removed from text.
+     * @member {number}
      * @default
      */
     this._increment = 2
 
     /**
      * State of last detected resize event.
+     * @member {Object}
      */
     this._hasChanged = {}
 
@@ -361,7 +369,7 @@ class TruncateTitle extends HTMLElement {
  * @readonly
  */
 Object.defineProperty(TruncateTitle, 'is', {
-  value: elementRegistryName,
+  value: name,
   writable: false,
   enumerable: true,
   configurable: false
