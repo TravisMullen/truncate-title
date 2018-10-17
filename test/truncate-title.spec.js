@@ -166,7 +166,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
   })
 
   describe(`display changes to textContent on parent resize`, () => {
-    it('should contentWidth for textContent', async () => {
+    it('should have contentWidth for textContent', async () => {
       const testValue = `${new Date()} Sartorial jean shorts actually.`
 
       await service.setTitle(elementHandle, testValue)
