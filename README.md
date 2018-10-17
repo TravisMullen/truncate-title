@@ -35,12 +35,12 @@ For the unregisted version use `{ "module": "dist/truncate-title.esm.js" }`, and
 
 CustomEvent `truncate-complete` is emmited everytime a truncation event is complete. 
 
-**`detail` contains the following info:**
+**`detail` contains the following `<Object>`:**
 ```js
 detail: { 
   before: <string>, // pre augmented title
-  after: <string>, // post augmented title,
-  width: <number> // width it was truncated to be less than
+  after: <string>, // post augmented title
+  width: <number> // width title was truncated to be less than
 }
 ```
 
