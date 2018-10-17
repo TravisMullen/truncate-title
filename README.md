@@ -2,7 +2,7 @@
 
 **Custom Element** for shortening text. Extends `abbr` tag.
 
-[Documentation](./documentation.md)
+[Documentation](https://github.com/TravisMullen/truncate-title/blob/master/documentation.md)
 
 ## Usage
 
