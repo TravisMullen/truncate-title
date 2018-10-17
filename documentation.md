@@ -24,12 +24,12 @@
 * [TruncateTitle](#TruncateTitle) ⇐ <code>HTMLElement</code>
     * [new TruncateTitle()](#new_TruncateTitle_new)
     * _instance_
-        * [.truncationType](#TruncateTitle+truncationType)
-        * [._rAF](#TruncateTitle+_rAF)
-        * [.contentWidth](#TruncateTitle+contentWidth)
-        * [.separator](#TruncateTitle+separator)
-        * [._increment](#TruncateTitle+_increment)
-        * [._hasChanged](#TruncateTitle+_hasChanged)
+        * [.truncationType](#TruncateTitle+truncationType) : <code>string</code>
+        * [._rAF](#TruncateTitle+_rAF) : <code>number</code>
+        * [.contentWidth](#TruncateTitle+contentWidth) : <code>number</code>
+        * [.separator](#TruncateTitle+separator) : <code>string</code>
+        * [._increment](#TruncateTitle+_increment) : <code>number</code>
+        * [._hasChanged](#TruncateTitle+_hasChanged) : <code>Object</code>
         * [.textContent](#TruncateTitle+textContent)
         * [.contentWidth](#TruncateTitle+contentWidth)
         * [._resizeObserver](#TruncateTitle+_resizeObserver)
@@ -53,20 +53,14 @@ and will auto generate `textContent`.
 
 <a name="TruncateTitle+truncationType"></a>
 
-### truncateTitle.truncationType
+### truncateTitle.truncationType : <code>string</code>
 Truncation type.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**: attributeChangedCallback  
-**Properties**
-
-| Type |
-| --- |
-| <code>string</code> | 
-
 <a name="TruncateTitle+_rAF"></a>
 
-### truncateTitle._rAF
+### truncateTitle._rAF : <code>number</code>
 requestAnimationFrame reference for cancellation.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
@@ -75,15 +69,9 @@ requestAnimationFrame reference for cancellation.
 - _doTruncate
 - disconnectedCallback
 
-**Properties**
-
-| Type |
-| --- |
-| <code>number</code> | 
-
 <a name="TruncateTitle+contentWidth"></a>
 
-### truncateTitle.contentWidth
+### truncateTitle.contentWidth : <code>number</code>
 Size, in pixels, of full text node (inner content) as rendered in DOM.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
@@ -92,52 +80,28 @@ Size, in pixels, of full text node (inner content) as rendered in DOM.
 - _updateContent
 - shouldAugment
 
-**Properties**
-
-| Type |
-| --- |
-| <code>number</code> | 
-
 <a name="TruncateTitle+separator"></a>
 
-### truncateTitle.separator
+### truncateTitle.separator : <code>string</code>
 Character added to truncated text.
 Can be changed using attribute `separator`
 on `connectedCallback` but is not observed.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Default**: <code>…</code>  
-**Properties**
-
-| Type |
-| --- |
-| <code>string</code> | 
-
+**Default**: <code>&quot;…&quot;</code>  
 <a name="TruncateTitle+_increment"></a>
 
-### truncateTitle._increment
+### truncateTitle._increment : <code>number</code>
 Amount of characters removed from text.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **Default**: <code>2</code>  
-**Properties**
-
-| Type |
-| --- |
-| <code>number</code> | 
-
 <a name="TruncateTitle+_hasChanged"></a>
 
-### truncateTitle._hasChanged
+### truncateTitle._hasChanged : <code>Object</code>
 State of last detected resize event.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Properties**
-
-| Type |
-| --- |
-| <code>Object</code> | 
-
 <a name="TruncateTitle+textContent"></a>
 
 ### truncateTitle.textContent

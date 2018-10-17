@@ -366,6 +366,8 @@ class TruncateTitle extends HTMLElement {
 
 /**
  * Define `is` attribute name for extended HTMLElement.
+ * 
+ * @memberof TruncateTitle {string}
  * @readonly
  */
 Object.defineProperty(TruncateTitle, 'is', {
