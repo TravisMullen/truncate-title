@@ -24,7 +24,6 @@ const TYPES = new Enumeration({
  * Custom Element to truncate text within an `abbr` tag.
  *
  * @customElement
- * @extends abbr
  * @class TruncateTitle
  * @augments HTMLElement
  */
