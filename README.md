@@ -2,9 +2,9 @@
 
 **Custom Element** for shortening text. Extends `abbr` tag.
 
-[:book: Documentation](https://github.com/TravisMullen/truncate-title/blob/master/documentation.md)
+:book: [Documentation](https://github.com/TravisMullen/truncate-title/blob/master/documentation.md)
 
-[:white_check_mark: Verbose Test Coverage](https://github.com/TravisMullen/truncate-title/blob/master/test/truncate-title.spec.js)
+:white_check_mark: [Verbose Test Coverage](https://github.com/TravisMullen/truncate-title/blob/master/test/truncate-title.spec.js)
 
 ## Usage
 
