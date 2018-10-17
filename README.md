@@ -38,8 +38,8 @@ CustomEvent `truncate-complete` is emmited everytime a truncation event is compl
 **`detail` contains the following `<Object>`:**
 ```js
 detail: { 
-  before: <string>, // pre augmented title
-  after: <string>, // post augmented title
+  before: <string>, // title before augmentation
+  after: <string>, // title after augmentation
   width: <number> // width title was truncated to be less than
 }
 ```
