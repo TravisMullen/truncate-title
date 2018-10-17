@@ -39,11 +39,8 @@ For the unregisted version use `{ "module": "dist/truncate-title.esm.js" }`, and
 
 ## Todo
 
-- [ ] Add Test Coverage.
-- [ ] Better Readme.md with Examples
+- [ ] More examples in `readme.md`
 - [ ] Use CSS Property to set default animation styles.
-- [ ] Set-up NPM for inclusion into other projects.
-- [ ] Seperate functions into multiple files.
 
 
 
