@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-/* global page: false, expect: false */
 
 import service from 'ventrilo'
 import { version } from '../package.json'
