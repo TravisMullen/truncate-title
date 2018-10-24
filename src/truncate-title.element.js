@@ -9,8 +9,8 @@ import ResizeObserver from 'resize-observer-polyfill'
  *
  * @readonly
  * @enum {string}
- * @see TruncateTitle.cutCenter
- * @see TruncateTitle.cutEnd
+ * @see TruncateTitle#cutCenter
+ * @see TruncateTitle#cutEnd
  */
 const TYPES = new Enumeration({
   center: 'cutCenter',
@@ -47,23 +47,23 @@ class TruncateTitle extends HTMLElement {
      * Truncation type.
      * @member {string}
      * @default
-     * @see attributeChangedCallback
+     * @see TruncateTitle#attributeChangedCallback
      */
     this.truncationType = TYPES.end
 
     /**
      * requestAnimationFrame reference for cancellation.
      * @member {number}
-     * @see _doTruncate
-     * @see disconnectedCallback
+     * @see TruncateTitle#_doTruncate
+     * @see TruncateTitle#disconnectedCallback
      */
     this._rAF = null
 
     /**
      * Size, in pixels, of full text node (inner content) as rendered in DOM.
      * @member {number}
-     * @see _updateContent
-     * @see shouldAugment
+     * @see TruncateTitle#_updateContent
+     * @see TruncateTitle#shouldAugment
      */
     this.contentWidth = null
 
@@ -172,7 +172,7 @@ class TruncateTitle extends HTMLElement {
     /**
      * Force text content to extend past parent for width analysis.
      *
-     * @see _updateContent
+     * @see TruncateTitle#_updateContent
      */
     this.style.whiteSpace = 'nowrap'
     this.style.opacity = 0
@@ -182,7 +182,7 @@ class TruncateTitle extends HTMLElement {
     /**
      * ResizeObserver callback function for handling truncation logic.
      *
-     * @see https://wicg.github.io/ResizeObserver/
+     * @see {@link} https://wicg.github.io/ResizeObserver/
      */
     this._resizeObserver = new ResizeObserver((entries, observer) => {
       for (const entry of entries) {
@@ -296,7 +296,7 @@ class TruncateTitle extends HTMLElement {
    *
    * @param {HTMLElement} self Instance of TruncateTitle
    * @returns {boolean}
-   * @see this._resizeObserver
+   * @see TruncateTitle#_resizeObserver
    */
   static shouldAugment (self) {
     const box = 0 +
@@ -310,7 +310,7 @@ class TruncateTitle extends HTMLElement {
    *
    * @param {HTMLElement} self Instance of TruncateTitle
    * @returns {boolean}
-   * @see _doTruncate
+   * @see TruncateTitle#_doTruncate
    */
   static shouldTruncate (self) {
     const box = 0 +
@@ -325,7 +325,7 @@ class TruncateTitle extends HTMLElement {
    * @note Accounts for padding of parent.
    * @param {HTMLElement} self Instance of TruncateTitle
    * @returns {boolean}
-   * @see _doTruncate
+   * @see TruncateTitle#_doTruncate
    */
   static shouldGrow (self) {
     const box = 0 +
