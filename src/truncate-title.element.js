@@ -1,8 +1,10 @@
 /* global HTMLElement:false, CustomEvent: false */
 
-import { name, version } from '../package.json'
+import { name, version, config } from '../package.json'
 import Enumeration from 'enumeration-class'
 import ResizeObserver from 'resize-observer-polyfill'
+
+import { estimateWidth } from './estimation.js'
 
 /**
  * Availible truncation types.
@@ -37,10 +39,26 @@ class TruncateTitle extends HTMLElement {
      * @readonly
      */
     Object.defineProperty(this, 'version', {
-      enumerable: false,
+      enumerable: true,
       configurable: false,
       writable: false,
       value: version
+    })
+
+    /**
+     * Debug Attribute Name
+     * Can be set on initial load, only, for console logs.
+     * Attribute will not be observed.
+     *
+     * @todo  Imp this!
+     * @member {string}
+     * @readonly
+     */
+    Object.defineProperty(this, '_debugAttributeName', {
+      enumerable: false,
+      configurable: false,
+      writable: false,
+      value: config.debugAttributeName
     })
 
     /**
@@ -77,6 +95,13 @@ class TruncateTitle extends HTMLElement {
     this.separator = '\u2026'
 
     /**
+     * Estimated character count to remove.
+     * This is used to speed up the truncation process.
+     * @type {Number}
+     */
+    this._estimatedTruncation = 0
+
+    /**
      * Amount of characters removed from text.
      * @member {number}
      * @default
@@ -105,8 +130,14 @@ class TruncateTitle extends HTMLElement {
     this.style.opacity = 1
     this.dispatchEvent(new CustomEvent('truncate-complete', {
       detail: {
-        before: this.getAttribute('title'),
-        after: this.textContent,
+        title: this.getAttribute('title'),
+        trunc: this.textContent,
+        chars: {
+          estimated: this._estimatedTruncation,
+          title: this.getAttribute('title').length,
+          trunc: this.textContent.length,
+          removed: (this.getAttribute('title').length - this.textContent.length)
+        },
         width: this.parentElement.clientWidth
       },
       bubbles: true,
@@ -141,7 +172,7 @@ class TruncateTitle extends HTMLElement {
       }
       this._rAF = window.requestAnimationFrame(rAFhandler)
     } else {
-      /** @note restore opacity if truncation is not required */
+      /** restore opacity if truncation is not required */
       this.style.opacity = 1
     }
   }
@@ -152,8 +183,10 @@ class TruncateTitle extends HTMLElement {
    * @param {string} newValue
    */
   _updateContent (newValue) {
+
     /** render the raw text string in the DOM */
     this.textContent = newValue
+
     /** store width value for comparison later */
     this.contentWidth = this.offsetWidth
   }
@@ -190,7 +223,7 @@ class TruncateTitle extends HTMLElement {
 
         /**
          * Cancel any existing _doTruncate.
-         * @note Fixes infanite loop if parent is expaneded before _doTruncate is complete and no longer requires truncation.
+         * Fixes infanite loop if parent is expaneded before _doTruncate is complete and no longer requires truncation.
          */
         if (this._rAF) { window.cancelAnimationFrame(this._rAF) }
 
@@ -250,12 +283,17 @@ class TruncateTitle extends HTMLElement {
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
-    /** @note Make sure Node.isConnected before trying to augment content */
+    /** Make sure Node.isConnected before trying to augment content */
     if (name === 'title' && this.isConnected) {
+      /** only do estimate once, incase there is an inaccuracy this cound create an infinite loop. */
+      this._estimatedTruncation = estimateWidth(this, this.parentElement, newValue)
+    console.log('this._estimatedTruncation', this._estimatedTruncation)
+    
+
       this._updateContent(newValue)
       this._doTruncate(newValue)
     }
-    /** @note If newValue is undefined its a typeof string */
+    /** If newValue is undefined its a typeof string */
     if (name === 'title-break' && newValue !== 'undefined') {
       this.truncationType = TYPES[newValue]
       this._doTruncate(this.getAttribute('title'))
@@ -322,7 +360,7 @@ class TruncateTitle extends HTMLElement {
   /**
    * Determines if truncated title text has room within its parent to add more characters.
    *
-   * @note Accounts for padding of parent.
+   * Accounts for padding of parent.
    * @param {HTMLElement} self Instance of TruncateTitle
    * @returns {boolean}
    * @see TruncateTitle#_doTruncate
@@ -351,7 +389,7 @@ class TruncateTitle extends HTMLElement {
    * Remove characters from the center of the string.
    * @param {string} title
    * @param {number} increment Number of characters to be removed.
-   * @note `increment` is doubled since it is applied twice.
+   * `increment` is doubled since it is applied twice.
    * @returns {string}
    */
   static cutCenter (title, increment, separator = '\u2026') {
