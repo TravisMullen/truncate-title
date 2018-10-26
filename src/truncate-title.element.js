@@ -366,7 +366,7 @@ class TruncateTitle extends HTMLElement {
 
 /**
  * Define `is` attribute name for extended HTMLElement.
- * 
+ *
  * @memberof TruncateTitle {string}
  * @readonly
  */
@@ -377,11 +377,4 @@ Object.defineProperty(TruncateTitle, 'is', {
   configurable: false
 })
 
-/**
- * Define in CustomElementRegistry.
- */
-const registerCustomElement = (elementName = TruncateTitle.is) => {
-  window.customElements.define(elementName, TruncateTitle, { extends: 'abbr' })
-}
-
-export { TruncateTitle as default, registerCustomElement }
+export { TruncateTitle as default }

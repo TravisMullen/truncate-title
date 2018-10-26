@@ -1,4 +1,4 @@
 
-import { registerCustomElement } from './truncate-title.element.js'
+import { registerCustomElement } from './truncate-title.define.js'
 
 registerCustomElement()

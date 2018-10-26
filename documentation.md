@@ -5,10 +5,10 @@
 <dd></dd>
 </dl>
 
-## Functions
+## Constants
 
 <dl>
-<dt><a href="#registerCustomElement">registerCustomElement()</a></dt>
+<dt><a href="#registerCustomElement">registerCustomElement</a></dt>
 <dd><p>Define in CustomElementRegistry.</p>
 </dd>
 </dl>
@@ -57,7 +57,7 @@ and will auto generate `textContent`.
 Truncation type.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
-**See**: attributeChangedCallback  
+**See**: TruncateTitle#attributeChangedCallback  
 <a name="TruncateTitle+_rAF"></a>
 
 ### truncateTitle._rAF : <code>number</code>
@@ -66,8 +66,8 @@ requestAnimationFrame reference for cancellation.
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**
 
-- _doTruncate
-- disconnectedCallback
+- TruncateTitle#_doTruncate
+- TruncateTitle#disconnectedCallback
 
 <a name="TruncateTitle+contentWidth"></a>
 
@@ -77,8 +77,8 @@ Size, in pixels, of full text node (inner content) as rendered in DOM.
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**
 
-- _updateContent
-- shouldAugment
+- TruncateTitle#_updateContent
+- TruncateTitle#shouldAugment
 
 <a name="TruncateTitle+separator"></a>
 
@@ -120,7 +120,7 @@ store width value for comparison later
 ResizeObserver callback function for handling truncation logic.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
-**See**: https://wicg.github.io/ResizeObserver/  
+**See**: {@link} https://wicg.github.io/ResizeObserver/  
 <a name="TruncateTitle+_completeTruncate"></a>
 
 ### truncateTitle._completeTruncate()
@@ -156,7 +156,7 @@ Get and save the text width for comparison.
 Determines if full title text, rendered as inner content, is larger than its parent.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**See**: this._resizeObserver  
+**See**: TruncateTitle#_resizeObserver  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -168,7 +168,7 @@ Determines if full title text, rendered as inner content, is larger than its par
 Determines if truncated title text is larger than its parent.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**See**: _doTruncate  
+**See**: TruncateTitle#_doTruncate  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -181,7 +181,7 @@ Determines if truncated title text has room within its parent to add more charac
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
 **Note**: Accounts for padding of parent.  
-**See**: _doTruncate  
+**See**: TruncateTitle#_doTruncate  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -221,12 +221,12 @@ Availible truncation types.
 **Read only**: true  
 **See**
 
-- TruncateTitle.cutCenter
-- TruncateTitle.cutEnd
+- TruncateTitle#cutCenter
+- TruncateTitle#cutEnd
 
 <a name="registerCustomElement"></a>
 
-## registerCustomElement()
+## registerCustomElement
 Define in CustomElementRegistry.
 
-**Kind**: global function  
+**Kind**: global constant  

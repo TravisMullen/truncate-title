@@ -27,9 +27,15 @@ To truncate in the middle of the text set `title-break` to `center`. The default
 
 ## Modules
 
-The default `{ "main": "dist/truncate-title.registered.js" }` module will register the Custom Element using `customElements.define`.
+The default module is not registered using `customElements.define`. This allows you to extend and modify before registering as you own Custom Element.
 
-For the unregisted version use `{ "module": "dist/truncate-title.esm.js" }`, and function `registerCustomElement` will be availible to register using a custom name or the default if no argument present.
+For a registered version (compiled as ESM) use `{ "browser": "dist/truncate-title.registered.js" }`.
+
+Example of registration function `registerCustomElement` is in [dist/truncate-title.registered.js](https://github.com/TravisMullen/truncate-title/blob/master/src/truncate-title.registered.js).
+
+`{ "main": "dist/truncate-title.registered.js" }` module will register the Custom Element using `customElements.define`.
+
+For the 
 
 ## Custom Event
 
@@ -51,7 +57,6 @@ detail: {
 
 ## Todo
 
-- [ ] More examples in `readme.md`
 - [ ] Use CSS Property to set default animation styles.
 
 
