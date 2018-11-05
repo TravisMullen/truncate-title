@@ -44,6 +44,7 @@
   },
   "author": "Travis Mullen <travis@travismullen.com> (http://travismullen.com/)",
   "config": {
+    "debugAttributeName": "debug",
     "ports": {
       "serve": 10001,
       "test": 10002
