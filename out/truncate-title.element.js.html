@@ -1,4 +1,32 @@
-/* global HTMLElement:false, CustomEvent: false */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: truncate-title.element.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: truncate-title.element.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* global HTMLElement:false, CustomEvent: false */
 
 import { name, version } from '../package.json'
 import Enumeration from 'enumeration-class'
@@ -31,10 +59,10 @@ const TYPES = new Enumeration({
  * @class TruncateTitle
  * @augments HTMLElement
  * @see example {@link https://github.com/notmessenger/jsdoc-plugins/blob/master/README.md}
- * @example <captionSome text</caption>
- * <trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></trucate-title>
- * @example <caption>Small Parent</caption>
- * <div style="width: 100px"><trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></trucate-title></div>
+ * @example &lt;captionSome text&lt;/caption>
+ * &lt;trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.">&lt;/trucate-title>
+ * @example &lt;caption>Small Parent&lt;/caption>
+ * &lt;div style="width: 100px">&lt;trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.">&lt;/trucate-title>&lt;/div>
  * @example index.html
  */
 class TruncateTitle extends HTMLElement {
@@ -217,7 +245,7 @@ class TruncateTitle extends HTMLElement {
         }
 
         /** Determine if resize of the parent getting larger. */
-        if (this._hasChanged[entry] < width) {
+        if (this._hasChanged[entry] &lt; width) {
           this._doTruncate(this.getAttribute('title'), false)
           this._hasChanged[entry] = width
           continue
@@ -251,7 +279,6 @@ class TruncateTitle extends HTMLElement {
   }
 
   disconnectedCallback () {
-    this._resizeObserver.disconnect()
     window.cancelAnimationFrame(this._rAF)
   }
 
@@ -260,8 +287,7 @@ class TruncateTitle extends HTMLElement {
     /**
      * Title Attribute
      *
-     * @name title
-     * @type {string}
+     * @property {string} title
      * @memberof TruncateTitle
      * @emits TruncateTitle#_updateContent
      * @emits TruncateTitle#_doTruncate
@@ -271,9 +297,7 @@ class TruncateTitle extends HTMLElement {
     /**
      * Title break Attribute
      * 
-     * @name title-break
-     * @type {string}
-     * @memberof TruncateTitle
+     * @property {string} title-break
      * @emits TruncateTitle#separator
      * @emits TruncateTitle#_doTruncate
      */
@@ -283,12 +307,12 @@ class TruncateTitle extends HTMLElement {
 
   attributeChangedCallback (name, oldValue, newValue) {
     /** Make sure Node.isConnected before trying to augment content */
-    if (name === 'title' && this.isConnected) {
+    if (name === 'title' &amp;&amp; this.isConnected) {
       this._updateContent(newValue)
       this._doTruncate(newValue)
     }
     /** If newValue is undefined its a typeof string */
-    if (name === 'title-break' && newValue !== 'undefined') {
+    if (name === 'title-break' &amp;&amp; newValue !== 'undefined') {
       this.truncationType = TYPES[newValue]
       this._doTruncate(this.getAttribute('title'))
     }
@@ -354,7 +378,7 @@ class TruncateTitle extends HTMLElement {
     const box = 0 +
       parseInt(window.getComputedStyle(self.parentElement).paddingLeft.replace('px', '')) +
       parseInt(window.getComputedStyle(self.parentElement).paddingRight.replace('px', ''))
-    return (self.parentElement.clientWidth - box) < self.contentWidth
+    return (self.parentElement.clientWidth - box) &lt; self.contentWidth
   }
 
   /**
@@ -368,7 +392,7 @@ class TruncateTitle extends HTMLElement {
     const box = 0 +
       parseInt(window.getComputedStyle(self.parentElement).paddingLeft.replace('px', '')) +
       parseInt(window.getComputedStyle(self.parentElement).paddingRight.replace('px', ''))
-    return (self.parentElement.clientWidth - box) < self.offsetWidth
+    return (self.parentElement.clientWidth - box) &lt; self.offsetWidth
   }
 
   /**
@@ -430,3 +454,26 @@ Object.defineProperty(TruncateTitle, 'is', {
 })
 
 export { TruncateTitle as default }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="trucate-title.html">trucate-title</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getTitle">getTitle</a></li><li><a href="global.html#getTitleBreak">getTitleBreak</a></li><li><a href="global.html#registerCustomElement">registerCustomElement</a></li><li><a href="global.html#setTitle">setTitle</a></li><li><a href="global.html#setTitleBreak">setTitleBreak</a></li><li><a href="global.html#TYPES">TYPES</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Oct 26 2018 19:16:51 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

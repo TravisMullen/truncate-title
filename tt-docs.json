@@ -1,0 +1,1206 @@
+{
+  "docs": [
+    {
+      "comment": "/**\n * Define in CustomElementRegistry.\n */",
+      "meta": {
+        "range": [
+          102,
+          258
+        ],
+        "filename": "truncate-title.define.js",
+        "lineno": 7,
+        "columnno": 0,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000006",
+          "name": "exports.registerCustomElement",
+          "type": "VariableDeclaration"
+        }
+      },
+      "description": "Define in CustomElementRegistry.",
+      "name": "registerCustomElement",
+      "longname": "registerCustomElement",
+      "kind": "constant",
+      "scope": "global",
+      "___id": "T000002R000002",
+      "___s": true
+    },
+    {
+      "comment": "/** @typedef {string|number} attribute */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 8,
+        "columnno": 0,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "kind": "typedef",
+      "name": "attribute",
+      "type": {
+        "names": [
+          "string",
+          "number"
+        ]
+      },
+      "longname": "attribute",
+      "scope": "global",
+      "___id": "T000002R000005",
+      "___s": true
+    },
+    {
+      "comment": "/** @typedef {string} center */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 9,
+        "columnno": 0,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "kind": "typedef",
+      "name": "center",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "longname": "center",
+      "scope": "global",
+      "___id": "T000002R000006",
+      "___s": true
+    },
+    {
+      "comment": "/** @typedef {string} end */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 10,
+        "columnno": 0,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "kind": "typedef",
+      "name": "end",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "longname": "end",
+      "scope": "global",
+      "___id": "T000002R000007",
+      "___s": true
+    },
+    {
+      "comment": "/**\n * Availible truncation types.\n *\n * @readonly\n * @enum {center|end}\n * \n */",
+      "meta": {
+        "range": [
+          391,
+          458
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 19,
+        "columnno": 6,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000046",
+          "name": "TYPES",
+          "type": "NewExpression",
+          "value": ""
+        }
+      },
+      "description": "Availible truncation types.",
+      "readonly": true,
+      "kind": "constant",
+      "isEnum": true,
+      "type": {
+        "names": [
+          "center",
+          "end"
+        ]
+      },
+      "name": "TYPES",
+      "longname": "TYPES",
+      "scope": "global",
+      "params": [],
+      "___id": "T000002R000008",
+      "___s": true
+    },
+    {
+      "comment": "/**\n * # Truncate Title\n * Custom Element to truncate text within an `abbr` tag.\n * Declare full text as `title` attribute,\n * and will auto generate `textContent`.\n *\n * @customElement trucate-title\n * @class TruncateTitle\n * @augments HTMLElement\n * @see example {@link https://github.com/notmessenger/jsdoc-plugins/blob/master/README.md}\n * @example <captionSome text</caption>\n * <trucate-title title=\"Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.\"></trucate-title>\n * @example <caption>Small Parent</caption>\n * <div style=\"width: 100px\"><trucate-title title=\"Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.\"></trucate-title></div>\n * @example index.html\n */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 24,
+        "columnno": 0,
+        "path": "/Users/tmulle204/Documents/truncation-title/src"
+      },
+      "description": "# Truncate Title\nCustom Element to truncate text within an `abbr` tag.\nDeclare full text as `title` attribute,\nand will auto generate `textContent`.<pre><code>&lt;trucate-title &gt;</code></pre>",
+      "customelements": [
+        {
+          "name": "trucate-title"
+        }
+      ],
+      "kind": "external",
+      "name": "trucate-title",
+      "augments": [
+        "HTMLElement"
+      ],
+      "see": [
+        "example {@link https://github.com/notmessenger/jsdoc-plugins/blob/master/README.md}"
+      ],
+      "examples": [
+        "<captionSome text</caption>\n<trucate-title title=\"Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.\"></trucate-title>",
+        "<caption>Small Parent</caption>\n<div style=\"width: 100px\"><trucate-title title=\"Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.\"></trucate-title></div>",
+        "index.html"
+      ],
+      "longname": "trucate-title",
+      "scope": "global",
+      "___id": "T000002R000011",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Truncation type.\n     * @member {string}\n     * @default\n     * @see TruncateTitle#attributeChangedCallback\n     */",
+      "meta": {
+        "range": [
+          1674,
+          1705
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 61,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000083",
+          "name": "this.truncationType",
+          "type": "MemberExpression",
+          "value": "TYPES.end",
+          "paramnames": []
+        }
+      },
+      "description": "Truncation type.",
+      "kind": "member",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "see": [
+        "TruncateTitle#attributeChangedCallback"
+      ],
+      "name": "truncationType",
+      "longname": "TruncateTitle#truncationType",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000018",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * requestAnimationFrame reference for cancellation.\n     * @member {number}\n     * @see TruncateTitle#_doTruncate\n     * @see TruncateTitle#disconnectedCallback\n     */",
+      "meta": {
+        "range": [
+          1893,
+          1909
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 69,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000091",
+          "name": "this._rAF",
+          "type": "Literal",
+          "value": null,
+          "paramnames": []
+        }
+      },
+      "description": "requestAnimationFrame reference for cancellation.",
+      "kind": "member",
+      "type": {
+        "names": [
+          "number"
+        ]
+      },
+      "see": [
+        "TruncateTitle#_doTruncate",
+        "TruncateTitle#disconnectedCallback"
+      ],
+      "name": "_rAF",
+      "longname": "TruncateTitle#_rAF",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000019",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Size, in pixels, of full text node (inner content) as rendered in DOM.\n     * @member {number}\n     * @see TruncateTitle#_updateContent\n     * @see TruncateTitle#shouldAugment\n     */",
+      "meta": {
+        "range": [
+          2114,
+          2138
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 77,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000097",
+          "name": "this.contentWidth",
+          "type": "Literal",
+          "value": null,
+          "paramnames": []
+        }
+      },
+      "description": "Size, in pixels, of full text node (inner content) as rendered in DOM.",
+      "kind": "member",
+      "type": {
+        "names": [
+          "number"
+        ]
+      },
+      "see": [
+        "TruncateTitle#_updateContent",
+        "TruncateTitle#shouldAugment"
+      ],
+      "name": "contentWidth",
+      "longname": "TruncateTitle#contentWidth",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000020",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Character added to truncated text.\n     * Can be changed using attribute `separator`\n     * on `connectedCallback` but is not observed.\n     * @member {string}\n     * @default\n     */",
+      "meta": {
+        "range": [
+          2343,
+          2368
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 86,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000103",
+          "name": "this.separator",
+          "type": "Literal",
+          "value": "…",
+          "paramnames": []
+        }
+      },
+      "description": "Character added to truncated text.\nCan be changed using attribute `separator`\non `connectedCallback` but is not observed.",
+      "kind": "member",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "defaultvalue": "…",
+      "name": "separator",
+      "longname": "TruncateTitle#separator",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000021",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Amount of characters removed from text.\n     * @member {number}\n     * @default\n     */",
+      "meta": {
+        "range": [
+          2477,
+          2496
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 93,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000109",
+          "name": "this._increment",
+          "type": "Literal",
+          "value": 2,
+          "paramnames": []
+        }
+      },
+      "description": "Amount of characters removed from text.",
+      "kind": "member",
+      "type": {
+        "names": [
+          "number"
+        ]
+      },
+      "defaultvalue": 2,
+      "name": "_increment",
+      "longname": "TruncateTitle#_increment",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000022",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * State of last detected resize event.\n     * @member {Object}\n     */",
+      "meta": {
+        "range": [
+          2586,
+          2607
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 99,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000115",
+          "name": "this._hasChanged",
+          "type": "ObjectExpression",
+          "value": "{}",
+          "paramnames": []
+        }
+      },
+      "description": "State of last detected resize event.",
+      "kind": "member",
+      "type": {
+        "names": [
+          "Object"
+        ]
+      },
+      "name": "_hasChanged",
+      "longname": "TruncateTitle#_hasChanged",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000023",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Signal that truncation has been completed.\n   *\n   */",
+      "meta": {
+        "range": [
+          2757,
+          3182
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 112,
+        "columnno": 2,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000120",
+          "name": "TruncateTitle#_completeTruncate",
+          "type": "MethodDefinition",
+          "paramnames": []
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Signal that truncation has been completed.",
+      "name": "_completeTruncate",
+      "longname": "TruncateTitle#_completeTruncate",
+      "kind": "function",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "params": [],
+      "___id": "T000002R000024",
+      "___s": true
+    },
+    {
+      "comment": "/** @todo - handle this more gracefully so it does not override a custom opacity */",
+      "meta": {
+        "range": [
+          2872,
+          2894
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 114,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000125",
+          "name": "this.style.opacity",
+          "type": "Literal",
+          "value": 1,
+          "paramnames": []
+        }
+      },
+      "todo": [
+        "- handle this more gracefully so it does not override a custom opacity"
+      ],
+      "name": "opacity",
+      "longname": "TruncateTitle#style.opacity",
+      "kind": "member",
+      "memberof": "TruncateTitle#style",
+      "scope": "static",
+      "___id": "T000002R000025",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Animate removal or addition of characters depending on parent's size.\n   *\n   * @param {string} title Text be truncated\n   * @param {boolean} grow Should the text be lengthened or shortened\n   */",
+      "meta": {
+        "range": [
+          3393,
+          4108
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 133,
+        "columnno": 2,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000165",
+          "name": "TruncateTitle#_doTruncate",
+          "type": "MethodDefinition",
+          "paramnames": [
+            "title",
+            "grow"
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Animate removal or addition of characters depending on parent's size.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "Text be truncated",
+          "name": "title"
+        },
+        {
+          "type": {
+            "names": [
+              "boolean"
+            ]
+          },
+          "description": "Should the text be lengthened or shortened",
+          "name": "grow",
+          "defaultvalue": true
+        }
+      ],
+      "name": "_doTruncate",
+      "longname": "TruncateTitle#_doTruncate",
+      "kind": "function",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000033",
+      "___s": true
+    },
+    {
+      "comment": "/** restore opacity if truncation is not required */",
+      "meta": {
+        "range": [
+          4076,
+          4098
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 154,
+        "columnno": 6,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000260",
+          "name": "this.style.opacity",
+          "type": "Literal",
+          "value": 1,
+          "paramnames": []
+        }
+      },
+      "description": "restore opacity if truncation is not required",
+      "name": "opacity",
+      "longname": "TruncateTitle#style.opacity",
+      "kind": "member",
+      "memberof": "TruncateTitle#style",
+      "scope": "static",
+      "___id": "T000002R000039",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Get and save the text width for comparison.\n   *\n   * @param {string} newValue\n   */",
+      "meta": {
+        "range": [
+          4208,
+          4411
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 163,
+        "columnno": 2,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000267",
+          "name": "TruncateTitle#_updateContent",
+          "type": "MethodDefinition",
+          "paramnames": [
+            "newValue"
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Get and save the text width for comparison.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "name": "newValue"
+        }
+      ],
+      "name": "_updateContent",
+      "longname": "TruncateTitle#_updateContent",
+      "kind": "function",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000040",
+      "___s": true
+    },
+    {
+      "comment": "/** render the raw text string in the DOM */",
+      "meta": {
+        "range": [
+          4289,
+          4316
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 165,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000273",
+          "name": "this.textContent",
+          "type": "Identifier",
+          "value": "newValue",
+          "paramnames": []
+        }
+      },
+      "description": "render the raw text string in the DOM",
+      "name": "textContent",
+      "longname": "TruncateTitle#textContent",
+      "kind": "member",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000041",
+      "___s": true
+    },
+    {
+      "comment": "/** store width value for comparison later */",
+      "meta": {
+        "range": [
+          4371,
+          4407
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 167,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000279",
+          "name": "this.contentWidth",
+          "type": "MemberExpression",
+          "value": "this.offsetWidth",
+          "paramnames": []
+        }
+      },
+      "description": "store width value for comparison later",
+      "name": "contentWidth",
+      "longname": "TruncateTitle#contentWidth",
+      "kind": "member",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000042",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Change the default browser styles for `abbr` tag.\n     */",
+      "meta": {
+        "range": [
+          4719,
+          4757
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 178,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000291",
+          "name": "this.style.textDecorationLine",
+          "type": "Literal",
+          "value": "none",
+          "paramnames": []
+        }
+      },
+      "description": "Change the default browser styles for `abbr` tag.",
+      "name": "textDecorationLine",
+      "longname": "TruncateTitle#style.textDecorationLine",
+      "kind": "member",
+      "memberof": "TruncateTitle#style",
+      "scope": "static",
+      "___id": "T000002R000044",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Force text content to extend past parent for width analysis.\n     *\n     * @see TruncateTitle#_updateContent\n     */",
+      "meta": {
+        "range": [
+          4974,
+          5006
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 186,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000315",
+          "name": "this.style.whiteSpace",
+          "type": "Literal",
+          "value": "nowrap",
+          "paramnames": []
+        }
+      },
+      "description": "Force text content to extend past parent for width analysis.",
+      "see": [
+        "TruncateTitle#_updateContent"
+      ],
+      "name": "whiteSpace",
+      "longname": "TruncateTitle#style.whiteSpace",
+      "kind": "member",
+      "memberof": "TruncateTitle#style",
+      "scope": "static",
+      "___id": "T000002R000047",
+      "___s": true
+    },
+    {
+      "comment": "/** @todo Map transitionTime to a CSS custom property */",
+      "meta": {
+        "range": [
+          5099,
+          5136
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 189,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000331",
+          "name": "this.style.transition",
+          "type": "Literal",
+          "value": "opacity .3s",
+          "paramnames": []
+        }
+      },
+      "todo": [
+        "Map transitionTime to a CSS custom property"
+      ],
+      "name": "transition",
+      "longname": "TruncateTitle#style.transition",
+      "kind": "member",
+      "memberof": "TruncateTitle#style",
+      "scope": "static",
+      "___id": "T000002R000049",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * ResizeObserver callback function for handling truncation logic.\n     *\n     * @see {@link https://wicg.github.io/ResizeObserver/}\n     */",
+      "meta": {
+        "range": [
+          5295,
+          6559
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 196,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000339",
+          "name": "this._resizeObserver",
+          "type": "NewExpression",
+          "value": "",
+          "paramnames": []
+        }
+      },
+      "description": "ResizeObserver callback function for handling truncation logic.",
+      "see": [
+        "{@link https://wicg.github.io/ResizeObserver/}"
+      ],
+      "name": "_resizeObserver",
+      "longname": "TruncateTitle#_resizeObserver",
+      "kind": "member",
+      "memberof": "TruncateTitle",
+      "scope": "instance",
+      "___id": "T000002R000050",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Title Attribute\n     *\n     * @name title\n     * @type {string}\n     * @memberof TruncateTitle\n     * @emits TruncateTitle#_updateContent\n     * @emits TruncateTitle#_doTruncate\n     */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 259,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "description": "Title Attribute",
+      "name": "title",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "memberof": "TruncateTitle",
+      "fires": [
+        "TruncateTitle#event:_updateContent",
+        "TruncateTitle#event:_doTruncate"
+      ],
+      "scope": "static",
+      "longname": "TruncateTitle.title",
+      "kind": "member",
+      "___id": "T000002R000059",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Title break Attribute\n     * \n     * @name title-break\n     * @type {string}\n     * @memberof TruncateTitle\n     * @emits TruncateTitle#separator\n     * @emits TruncateTitle#_doTruncate\n     */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 270,
+        "columnno": 4,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "description": "Title break Attribute",
+      "name": "title-break",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "memberof": "TruncateTitle",
+      "fires": [
+        "TruncateTitle#event:separator",
+        "TruncateTitle#event:_doTruncate"
+      ],
+      "scope": "static",
+      "longname": "TruncateTitle.title-break",
+      "kind": "member",
+      "___id": "T000002R000060",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Get `title` value.\n   * @name getTitle\n   * @type {string}\n   * @return {string}\n   */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 299,
+        "columnno": 1,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "description": "Get `title` value.",
+      "name": "getTitle",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          }
+        }
+      ],
+      "longname": "getTitle",
+      "kind": "member",
+      "scope": "global",
+      "___id": "T000002R000063",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Set `title` value.\n   * @name setTitle\n   * @emits TruncateTitle#title\n   * @param {string}\n   */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 308,
+        "columnno": 1,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "description": "Set `title` value.",
+      "name": "setTitle",
+      "fires": [
+        "TruncateTitle#event:title"
+      ],
+      "params": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          }
+        }
+      ],
+      "longname": "setTitle",
+      "kind": "member",
+      "scope": "global",
+      "___id": "T000002R000065",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Get `title` value from `title-break`.\n   * @name getTitleBreak\n   * @type {string}\n   * @return {cutType}\n   */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 317,
+        "columnno": 1,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "description": "Get `title` value from `title-break`.",
+      "name": "getTitleBreak",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "cutType"
+            ]
+          }
+        }
+      ],
+      "longname": "getTitleBreak",
+      "kind": "member",
+      "scope": "global",
+      "___id": "T000002R000067",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Set `title` value.\n   * @name setTitleBreak\n   * @emits TruncateTitle#title-break\n   * @param {cutType}\n   */",
+      "meta": {
+        "filename": "truncate-title.element.js",
+        "lineno": 326,
+        "columnno": 1,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {}
+      },
+      "description": "Set `title` value.",
+      "name": "setTitleBreak",
+      "fires": [
+        "TruncateTitle#event:title-break"
+      ],
+      "params": [
+        {
+          "type": {
+            "names": [
+              "cutType"
+            ]
+          }
+        }
+      ],
+      "longname": "setTitleBreak",
+      "kind": "member",
+      "scope": "global",
+      "___id": "T000002R000069",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Determines if full title text, rendered as inner content, is larger than its parent.\n   *\n   * @param {HTMLElement} self Instance of TruncateTitle\n   * @returns {boolean}\n   * @see TruncateTitle#_resizeObserver\n   */",
+      "meta": {
+        "range": [
+          9686,
+          9992
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 352,
+        "columnno": 2,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000643",
+          "name": "TruncateTitle.shouldAugment",
+          "type": "MethodDefinition",
+          "paramnames": [
+            "self"
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Determines if full title text, rendered as inner content, is larger than its parent.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "HTMLElement"
+            ]
+          },
+          "description": "Instance of TruncateTitle",
+          "name": "self"
+        }
+      ],
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "boolean"
+            ]
+          }
+        }
+      ],
+      "see": [
+        "TruncateTitle#_resizeObserver"
+      ],
+      "name": "shouldAugment",
+      "longname": "TruncateTitle.shouldAugment",
+      "kind": "function",
+      "memberof": "TruncateTitle",
+      "scope": "static",
+      "___id": "T000002R000071",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Determines if truncated title text is larger than its parent.\n   *\n   * @param {HTMLElement} self Instance of TruncateTitle\n   * @returns {boolean}\n   * @see TruncateTitle#_doTruncate\n   */",
+      "meta": {
+        "range": [
+          10197,
+          10503
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 366,
+        "columnno": 2,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000698",
+          "name": "TruncateTitle.shouldTruncate",
+          "type": "MethodDefinition",
+          "paramnames": [
+            "self"
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Determines if truncated title text is larger than its parent.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "HTMLElement"
+            ]
+          },
+          "description": "Instance of TruncateTitle",
+          "name": "self"
+        }
+      ],
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "boolean"
+            ]
+          }
+        }
+      ],
+      "see": [
+        "TruncateTitle#_doTruncate"
+      ],
+      "name": "shouldTruncate",
+      "longname": "TruncateTitle.shouldTruncate",
+      "kind": "function",
+      "memberof": "TruncateTitle",
+      "scope": "static",
+      "___id": "T000002R000073",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Determines if truncated title text has room within its parent to add more characters.\n   *\n   * Accounts for padding of parent.\n   * @param {HTMLElement} self Instance of TruncateTitle\n   * @returns {boolean}\n   * @see TruncateTitle#_doTruncate\n   */",
+      "meta": {
+        "range": [
+          10769,
+          11160
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 381,
+        "columnno": 2,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000753",
+          "name": "TruncateTitle.shouldGrow",
+          "type": "MethodDefinition",
+          "paramnames": [
+            "self"
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Determines if truncated title text has room within its parent to add more characters.\n\nAccounts for padding of parent.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "HTMLElement"
+            ]
+          },
+          "description": "Instance of TruncateTitle",
+          "name": "self"
+        }
+      ],
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "boolean"
+            ]
+          }
+        }
+      ],
+      "see": [
+        "TruncateTitle#_doTruncate"
+      ],
+      "name": "shouldGrow",
+      "longname": "TruncateTitle.shouldGrow",
+      "kind": "function",
+      "memberof": "TruncateTitle",
+      "scope": "static",
+      "___id": "T000002R000075",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Remove characters from the end of the string.\n   * @param {string} title\n   * @param {number} increment Number of characters to be removed.\n   * @returns {string}\n   */",
+      "meta": {
+        "range": [
+          11344,
+          11499
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 394,
+        "columnno": 2,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000825",
+          "name": "TruncateTitle.cutEnd",
+          "type": "MethodDefinition",
+          "paramnames": [
+            "title",
+            "increment",
+            "separator"
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Remove characters from the end of the string.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "name": "title"
+        },
+        {
+          "type": {
+            "names": [
+              "number"
+            ]
+          },
+          "description": "Number of characters to be removed.",
+          "name": "increment"
+        }
+      ],
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          }
+        }
+      ],
+      "name": "cutEnd",
+      "longname": "TruncateTitle.cutEnd",
+      "kind": "function",
+      "memberof": "TruncateTitle",
+      "scope": "static",
+      "___id": "T000002R000077",
+      "___s": true
+    },
+    {
+      "comment": "/**\n   * Remove characters from the center of the string.\n   * @param {string} title\n   * @param {number} increment Number of characters to be removed.\n   * `increment` is doubled since it is applied twice.\n   * @returns {string}\n   */",
+      "meta": {
+        "range": [
+          11741,
+          12011
+        ],
+        "filename": "truncate-title.element.js",
+        "lineno": 408,
+        "columnno": 2,
+        "path": "/Users/tmulle204/Documents/truncation-title/src",
+        "code": {
+          "id": "astnode100000851",
+          "name": "TruncateTitle.cutCenter",
+          "type": "MethodDefinition",
+          "paramnames": [
+            "title",
+            "increment",
+            "separator"
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Remove characters from the center of the string.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "name": "title"
+        },
+        {
+          "type": {
+            "names": [
+              "number"
+            ]
+          },
+          "description": "Number of characters to be removed.\n`increment` is doubled since it is applied twice.",
+          "name": "increment"
+        }
+      ],
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          }
+        }
+      ],
+      "name": "cutCenter",
+      "longname": "TruncateTitle.cutCenter",
+      "kind": "function",
+      "memberof": "TruncateTitle",
+      "scope": "static",
+      "___id": "T000002R000078",
+      "___s": true
+    },
+    {
+      "kind": "package",
+      "longname": "package:undefined",
+      "files": [
+        "/Users/tmulle204/Documents/truncation-title/src/truncate-title.define.js",
+        "/Users/tmulle204/Documents/truncation-title/src/truncate-title.element.js",
+        "/Users/tmulle204/Documents/truncation-title/src/truncate-title.registered.js"
+      ],
+      "___id": "T000002R000085",
+      "___s": true
+    }
+  ]
+}

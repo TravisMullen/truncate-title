@@ -174,7 +174,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       expect(contentWidth).to.equal(offsetWidth)
     })
-    it('should render full content when wrapper is larger than textContent', async () => {
+    it.only('should render full content when wrapper is larger than textContent', async () => {
       const testValue = `${new Date()} Sartorial jean shorts actually.`
 
       const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
@@ -183,9 +183,11 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       await service.resizeElement(WRAPPER_SELELCTOR, 50)
 
       await service.waitForCustomEvent(MAX_TIMEOUT)
+      expect(elementWidth).to.be.below(parentWidth)
 
       await service.resizeElement(WRAPPER_SELELCTOR, 760)
-      await page.waitFor(500)
+      // await page.waitFor(500)
+      await service.waitForCustomEvent(MAX_TIMEOUT)
 
       const parentWidth = await page.$eval(WRAPPER_SELELCTOR, e => e.offsetWidth)
       const elementWidth = await page.$eval(CUSTOM_ELEMENT, e => e.offsetWidth)
@@ -199,12 +201,15 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       await ce.dispose()
     })
 
-    it('should render augmented content when wrapper is smaller than textContent', async () => {
+    it.only('should render augmented content when wrapper is smaller than textContent', async () => {
       const testValue = `${new Date()} Sartorial jean shorts actually.`
 
       const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
 
       await service.setTitle(elementHandle, testValue)
+
+      await service.waitForCustomEvent(MAX_TIMEOUT)
+
       await service.resizeElement(WRAPPER_SELELCTOR, 50)
 
       await service.waitForCustomEvent(MAX_TIMEOUT)

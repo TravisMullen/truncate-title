@@ -18,8 +18,8 @@
 ## TruncateTitle ⇐ <code>HTMLElement</code>
 **Kind**: global class  
 **Extends**: <code>HTMLElement</code>  
-**Customelement**:   
-**Demo**: /index.html  
+**Customelement**: trucate-title  
+**See**: /index.html  
 
 * [TruncateTitle](#TruncateTitle) ⇐ <code>HTMLElement</code>
     * [new TruncateTitle()](#new_TruncateTitle_new)
@@ -33,6 +33,10 @@
         * [.textContent](#TruncateTitle+textContent)
         * [.contentWidth](#TruncateTitle+contentWidth)
         * [._resizeObserver](#TruncateTitle+_resizeObserver)
+        * [.title](#TruncateTitle+title) : <code>string</code>
+        * [.title](#TruncateTitle+title) : <code>string</code>
+        * [.titleBreak](#TruncateTitle+titleBreak) : <code>string</code>
+        * [.titleBreak](#TruncateTitle+titleBreak) : [<code>cutType</code>](#cutType)
         * [._completeTruncate()](#TruncateTitle+_completeTruncate)
         * [._doTruncate(title, grow)](#TruncateTitle+_doTruncate)
         * [._updateContent(newValue)](#TruncateTitle+_updateContent)
@@ -51,6 +55,15 @@ Custom Element to truncate text within an `abbr` tag.
 Declare full text as `title` attribute,
 and will auto generate `textContent`.
 
+**Example**  
+```js
+<captionSome text</caption>
+<trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></trucate-title>
+```
+**Example** *(Small Parent)*  
+```js
+<div style="width: 100px"><trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></trucate-title></div>
+```
 <a name="TruncateTitle+truncationType"></a>
 
 ### truncateTitle.truncationType : <code>string</code>
@@ -120,7 +133,31 @@ store width value for comparison later
 ResizeObserver callback function for handling truncation logic.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
-**See**: {@link} https://wicg.github.io/ResizeObserver/  
+**See**: [https://wicg.github.io/ResizeObserver/](https://wicg.github.io/ResizeObserver/)  
+<a name="TruncateTitle+title"></a>
+
+### truncateTitle.title : <code>string</code>
+Get `title` value.
+
+**Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
+<a name="TruncateTitle+title"></a>
+
+### truncateTitle.title : <code>string</code>
+Set `title` value.
+
+**Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
+<a name="TruncateTitle+titleBreak"></a>
+
+### truncateTitle.titleBreak : <code>string</code>
+Get `title` value from `title-break`.
+
+**Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
+<a name="TruncateTitle+titleBreak"></a>
+
+### truncateTitle.titleBreak : [<code>cutType</code>](#cutType)
+Set `title` value.
+
+**Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 <a name="TruncateTitle+_completeTruncate"></a>
 
 ### truncateTitle._completeTruncate()
@@ -179,8 +216,9 @@ Determines if truncated title text is larger than its parent.
 ### TruncateTitle.shouldGrow(self) ⇒ <code>boolean</code>
 Determines if truncated title text has room within its parent to add more characters.
 
+Accounts for padding of parent.
+
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Note**: Accounts for padding of parent.  
 **See**: TruncateTitle#_doTruncate  
 
 | Param | Type | Description |
@@ -205,16 +243,15 @@ Remove characters from the end of the string.
 Remove characters from the center of the string.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Note**: `increment` is doubled since it is applied twice.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | title | <code>string</code> |  |
-| increment | <code>number</code> | Number of characters to be removed. |
+| increment | <code>number</code> | Number of characters to be removed. `increment` is doubled since it is applied twice. |
 
-<a name="TYPES"></a>
+<a name="cutType"></a>
 
-## TYPES : <code>enum</code>
+## cutType : <code>enum</code>
 Availible truncation types.
 
 **Kind**: global enum  
