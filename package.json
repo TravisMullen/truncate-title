@@ -1,6 +1,6 @@
 {
   "name": "truncate-title",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Custom HTMLElement for truncating text. Extends Abbr tag.",
   "main": "dist/truncate-title.cjs.js",
   "module": "dist/truncate-title.esm.js",
