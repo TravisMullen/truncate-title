@@ -5,6 +5,23 @@
 <dd></dd>
 </dl>
 
+## Members
+
+<dl>
+<dt><a href="#getTitle">getTitle</a> ⇒ <code>string</code></dt>
+<dd><p>Get <code>title</code> value.</p>
+</dd>
+<dt><a href="#setTitle">setTitle</a></dt>
+<dd><p>Set <code>title</code> value.</p>
+</dd>
+<dt><a href="#getTitleBreak">getTitleBreak</a> ⇒ <code>cutType</code></dt>
+<dd><p>Get <code>title</code> value from <code>title-break</code>.</p>
+</dd>
+<dt><a href="#setTitleBreak">setTitleBreak</a></dt>
+<dd><p>Set <code>title</code> value.</p>
+</dd>
+</dl>
+
 ## Constants
 
 <dl>
@@ -13,32 +30,44 @@
 </dd>
 </dl>
 
+## Typedefs
+
+<dl>
+<dt><a href="#attribute">attribute</a> : <code>string</code> | <code>number</code></dt>
+<dd></dd>
+<dt><a href="#center">center</a> : <code>string</code></dt>
+<dd></dd>
+<dt><a href="#end">end</a> : <code>string</code></dt>
+<dd></dd>
+</dl>
+
 <a name="TruncateTitle"></a>
 
 ## TruncateTitle ⇐ <code>HTMLElement</code>
 **Kind**: global class  
 **Extends**: <code>HTMLElement</code>  
-**Customelement**:   
-**Demo**: /index.html  
+**Customelement**: trucate-title  
+**See**: example [https://github.com/notmessenger/jsdoc-plugins/blob/master/README.md](https://github.com/notmessenger/jsdoc-plugins/blob/master/README.md)  
 
 * [TruncateTitle](#TruncateTitle) ⇐ <code>HTMLElement</code>
     * [new TruncateTitle()](#new_TruncateTitle_new)
     * _instance_
-        * [.truncationType](#TruncateTitle+truncationType) : <code>string</code>
         * [._rAF](#TruncateTitle+_rAF) : <code>number</code>
         * [.contentWidth](#TruncateTitle+contentWidth) : <code>number</code>
         * [.separator](#TruncateTitle+separator) : <code>string</code>
-        * [._estimatedTruncation](#TruncateTitle+_estimatedTruncation) : <code>Number</code>
         * [._increment](#TruncateTitle+_increment) : <code>number</code>
         * [._hasChanged](#TruncateTitle+_hasChanged) : <code>Object</code>
         * [.textContent](#TruncateTitle+textContent)
         * [.contentWidth](#TruncateTitle+contentWidth)
         * [._resizeObserver](#TruncateTitle+_resizeObserver)
-        * [._increment](#TruncateTitle+_increment)
+        * [.truncationType](#TruncateTitle+truncationType) : <code>string</code>
         * [._completeTruncate()](#TruncateTitle+_completeTruncate)
         * [._doTruncate(title, grow)](#TruncateTitle+_doTruncate)
         * [._updateContent(newValue)](#TruncateTitle+_updateContent)
+        * [._validateBreakType(newValue)](#TruncateTitle+_validateBreakType) ⇒ <code>boolean</code>
     * _static_
+        * [.title](#TruncateTitle.title) : <code>string</code>
+        * [.title-break](#TruncateTitle.title-break) : <code>string</code>
         * [.shouldAugment(self)](#TruncateTitle.shouldAugment) ⇒ <code>boolean</code>
         * [.shouldTruncate(self)](#TruncateTitle.shouldTruncate) ⇒ <code>boolean</code>
         * [.shouldGrow(self)](#TruncateTitle.shouldGrow) ⇒ <code>boolean</code>
@@ -53,13 +82,19 @@ Custom Element to truncate text within an `abbr` tag.
 Declare full text as `title` attribute,
 and will auto generate `textContent`.
 
-<a name="TruncateTitle+truncationType"></a>
-
-### truncateTitle.truncationType : <code>string</code>
-Truncation type.
-
-**Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
-**See**: TruncateTitle#attributeChangedCallback  
+**Example**  
+```js
+<captionSome text</caption>
+<trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></trucate-title>
+```
+**Example** *(Small Parent)*  
+```js
+<div style="width: 100px"><trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></trucate-title></div>
+```
+**Example**  
+```js
+index.html
+```
 <a name="TruncateTitle+_rAF"></a>
 
 ### truncateTitle._rAF : <code>number</code>
@@ -91,13 +126,6 @@ on `connectedCallback` but is not observed.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **Default**: <code>&quot;…&quot;</code>  
-<a name="TruncateTitle+_estimatedTruncation"></a>
-
-### truncateTitle._estimatedTruncation : <code>Number</code>
-Estimated character count to remove.
-This is used to speed up the truncation process.
-
-**Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 <a name="TruncateTitle+_increment"></a>
 
 ### truncateTitle._increment : <code>number</code>
@@ -129,13 +157,14 @@ store width value for comparison later
 ResizeObserver callback function for handling truncation logic.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
-**See**: {@link} https://wicg.github.io/ResizeObserver/  
-<a name="TruncateTitle+_increment"></a>
+**See**: [https://wicg.github.io/ResizeObserver/](https://wicg.github.io/ResizeObserver/)  
+<a name="TruncateTitle+truncationType"></a>
 
-### truncateTitle._increment
-only do estimate once, incase there is an inaccuracy this cound create an infinite loop.
+### truncateTitle.truncationType : <code>string</code>
+Truncation type.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
+**See**: TruncateTitle#attributeChangedCallback  
 <a name="TruncateTitle+_completeTruncate"></a>
 
 ### truncateTitle._completeTruncate()
@@ -165,6 +194,32 @@ Get and save the text width for comparison.
 | --- | --- |
 | newValue | <code>string</code> | 
 
+<a name="TruncateTitle+_validateBreakType"></a>
+
+### truncateTitle._validateBreakType(newValue) ⇒ <code>boolean</code>
+Check to see if declared type is valid.
+
+**Kind**: instance method of [<code>TruncateTitle</code>](#TruncateTitle)  
+**Returns**: <code>boolean</code> - Is a valid breaktype. [True=valid]  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| newValue | <code>string</code> | Break type to be assigned. |
+
+<a name="TruncateTitle.title"></a>
+
+### TruncateTitle.title : <code>string</code>
+Title Attribute
+
+**Kind**: static property of [<code>TruncateTitle</code>](#TruncateTitle)  
+**Emits**: <code>TruncateTitle#event:_updateContent</code>, <code>TruncateTitle#event:_doTruncate</code>  
+<a name="TruncateTitle.title-break"></a>
+
+### TruncateTitle.title-break : <code>string</code>
+Title break Attribute
+
+**Kind**: static property of [<code>TruncateTitle</code>](#TruncateTitle)  
+**Emits**: <code>TruncateTitle#event:separator</code>, <code>TruncateTitle#event:_doTruncate</code>  
 <a name="TruncateTitle.shouldAugment"></a>
 
 ### TruncateTitle.shouldAugment(self) ⇒ <code>boolean</code>
@@ -227,6 +282,42 @@ Remove characters from the center of the string.
 | title | <code>string</code> |  |
 | increment | <code>number</code> | Number of characters to be removed. `increment` is doubled since it is applied twice. |
 
+<a name="getTitle"></a>
+
+## getTitle ⇒ <code>string</code>
+Get `title` value.
+
+**Kind**: global variable  
+<a name="setTitle"></a>
+
+## setTitle
+Set `title` value.
+
+**Kind**: global variable  
+**Emits**: <code>TruncateTitle#event:title</code>  
+
+| Type |
+| --- |
+| <code>string</code> | 
+
+<a name="getTitleBreak"></a>
+
+## getTitleBreak ⇒ <code>cutType</code>
+Get `title` value from `title-break`.
+
+**Kind**: global variable  
+<a name="setTitleBreak"></a>
+
+## setTitleBreak
+Set `title` value.
+
+**Kind**: global variable  
+**Emits**: <code>TruncateTitle#event:title-break</code>  
+
+| Type |
+| --- |
+| <code>cutType</code> | 
+
 <a name="TYPES"></a>
 
 ## TYPES : <code>enum</code>
@@ -234,14 +325,21 @@ Availible truncation types.
 
 **Kind**: global enum  
 **Read only**: true  
-**See**
-
-- TruncateTitle#cutCenter
-- TruncateTitle#cutEnd
-
 <a name="registerCustomElement"></a>
 
 ## registerCustomElement
 Define in CustomElementRegistry.
 
 **Kind**: global constant  
+<a name="attribute"></a>
+
+## attribute : <code>string</code> \| <code>number</code>
+**Kind**: global typedef  
+<a name="center"></a>
+
+## center : <code>string</code>
+**Kind**: global typedef  
+<a name="end"></a>
+
+## end : <code>string</code>
+**Kind**: global typedef  

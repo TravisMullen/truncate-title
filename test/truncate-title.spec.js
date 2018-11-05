@@ -212,7 +212,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       const parentWidth = await page.$eval(WRAPPER_SELELCTOR, e => e.offsetWidth)
       const elementWidth = await page.$eval(CUSTOM_ELEMENT, e => e.offsetWidth)
 
-      expect(elementWidth).to.be.below(parentWidth)
+      expect(elementWidth).to.be.at.most(parentWidth)
 
       await ce.dispose()
     })
@@ -345,14 +345,14 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
     })
   })
 
-  describe(`augmented the string ending as when attribute 'title-break' is set to 'end'`, () => {
+  describe(`augmented the string ending as when attribute 'title-break' is set to 'center'`, () => {
     it(`should render truncated variation of title tag string`, async () => {
       const testValue = `${new Date()} Sartorial jean shorts actually, tattooed kickstarter direct trade try-hard woke four dollar toast truffaut. Green juice keffiyeh four dollar toast hot chicken pabst typewriter scenester before they sold out banh mi roof party bushwick ugh ennui edison bulb echo park. Street art edison bulb heirloom occupy health goth, cloud bread af small batch deep v crucifix intelligentsia try-hard. Wayfarers hexagon chartreuse, selvage lo-fi coloring book vape. Raw denim marfa taiyaki photo booth.`
 
       const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
 
-      await service.setAttributeTitleBreak(elementHandle, 'center')
       await service.setTitle(elementHandle, testValue)
+      await service.setAttributeTitleBreak(elementHandle, 'center')
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
       const textContent = await service.getTextContent(elementHandle)
@@ -364,13 +364,38 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       const beginingChunk = textContent.substring(0, textContentSeparatorIndex - 1)
       const endingChunk = textContent.substring(textContentSeparatorIndex + 1, textContentLength - textContentSeparatorIndex + 1)
 
-      expect(testValue).to.include(beginingChunk)
-      expect(testValue).to.include(endingChunk)
+      expect(testValue).to.include(beginingChunk, 'begining does not match')
+      expect(testValue).to.include(endingChunk, 'end does not match')
 
       await ce.dispose()
     })
 
-    it(`should render truncated variation on property change`, async () => {
+    it(`should render truncated variation on property change (title then title-break)`, async () => {
+      const testValue = `${new Date()} Sartorial jean shorts actually, tattooed kickstarter direct trade try-hard woke four dollar toast truffaut. Green juice keffiyeh four dollar toast hot chicken pabst typewriter scenester before they sold out banh mi roof party bushwick ugh ennui edison bulb echo park. Street art edison bulb heirloom occupy health goth, cloud bread af small batch deep v crucifix intelligentsia try-hard. Wayfarers hexagon chartreuse, selvage lo-fi coloring book vape. Raw denim marfa taiyaki photo booth.`
+
+      const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
+
+      await service.setTitle(elementHandle, testValue)
+      await service.setAttributeTitleBreak(elementHandle, 'center')
+      await service.waitForCustomEvent(MAX_TIMEOUT)
+
+      const textContent = await service.getTextContent(elementHandle)
+      const textContentSeparatorIndex = await page.$eval(CUSTOM_ELEMENT, e => {
+        const content = e.textContent
+        return content.indexOf(e.separator)
+      })
+      const textContentLength = await page.$eval(CUSTOM_ELEMENT, e => e.textContent.length)
+
+      const beginingChunk = textContent.substring(0, textContentSeparatorIndex - 1)
+      const endingChunk = textContent.substring(textContentSeparatorIndex + 1, textContentLength - textContentSeparatorIndex + 1)
+
+      expect(testValue).to.include(beginingChunk, 'begining does not match')
+      expect(testValue).to.include(endingChunk, 'end does not match')
+
+      await ce.dispose()
+    })
+
+    it(`should render truncated variation on property change (title-break then title)`, async () => {
       const testValue = `${new Date()} Sartorial jean shorts actually, tattooed kickstarter direct trade try-hard woke four dollar toast truffaut. Green juice keffiyeh four dollar toast hot chicken pabst typewriter scenester before they sold out banh mi roof party bushwick ugh ennui edison bulb echo park. Street art edison bulb heirloom occupy health goth, cloud bread af small batch deep v crucifix intelligentsia try-hard. Wayfarers hexagon chartreuse, selvage lo-fi coloring book vape. Raw denim marfa taiyaki photo booth.`
 
       const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
@@ -389,14 +414,56 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       const beginingChunk = textContent.substring(0, textContentSeparatorIndex - 1)
       const endingChunk = textContent.substring(textContentSeparatorIndex + 1, textContentLength - textContentSeparatorIndex + 1)
 
-      expect(testValue).to.include(beginingChunk)
-      expect(testValue).to.include(endingChunk)
+      expect(testValue).to.include(beginingChunk, 'begining does not match')
+      expect(testValue).to.include(endingChunk, 'end does not match')
+
+      await ce.dispose()
+    })
+
+    it(`should render truncated variation on inital load (not changed after)`, async () => {
+      const testValue = `${new Date()} Sartorial jean shorts actually, tattooed kickstarter direct trade try-hard woke four dollar toast truffaut. Green juice keffiyeh four dollar toast hot chicken pabst typewriter scenester before they sold out banh mi roof party bushwick ugh ennui edison bulb echo park. Street art edison bulb heirloom occupy health goth, cloud bread af small batch deep v crucifix intelligentsia try-hard. Wayfarers hexagon chartreuse, selvage lo-fi coloring book vape. Raw denim marfa taiyaki photo booth.`
+
+      // remove before because we want to create a new element with an attribute
+      await service.removeCustomElementHandle(customElementCreate, WRAPPER_SELELCTOR)
+      await elementHandle.dispose()
+      await customElementCreate.dispose()
+
+      // create new custom element with "separator" attribute
+      customElementCreate = await service.createCustomElementHandle(CUSTOM_ELEMENT, EXTENDED_ELEMENT, WRAPPER_SELELCTOR, {
+        attributes: {
+          id: TEST_ELEMENT_ID,
+          'text-break': 'center'
+        }
+      })
+
+      // wait for it to render in the DOM.
+      await page.waitFor(CUSTOM_ELEMENT)
+      // grab the rendered element for test manipulation.
+      elementHandle = await service.customElementHandle(CUSTOM_ELEMENT)
+
+      // await service.setAttributeTitleBreak(elementHandle, 'center')
+      await service.setTitle(elementHandle, testValue)
+
+      const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
+
+      const textContent = await service.getTextContent(elementHandle)
+      const textContentSeparatorIndex = await page.$eval(CUSTOM_ELEMENT, e => {
+        const content = e.textContent
+        return content.indexOf(e.separator)
+      })
+      const textContentLength = await page.$eval(CUSTOM_ELEMENT, e => e.textContent.length)
+
+      const beginingChunk = textContent.substring(0, textContentSeparatorIndex - 1)
+      const endingChunk = textContent.substring(textContentSeparatorIndex + 1, textContentLength - textContentSeparatorIndex + 1)
+
+      expect(testValue).to.include(beginingChunk, 'begining does not match')
+      expect(testValue).to.include(endingChunk, 'end does not match')
 
       await ce.dispose()
     })
   })
 
-  describe(`augmented the string middle as when attribute 'title-break' is set to 'center'`, () => {
+  describe(`augmented the string end as when attribute 'title-break' is set to 'end'`, () => {
     it(`should render truncated variation of title tag string`, async () => {
       const testValue = `${new Date()} Sartorial jean shorts actually, tattooed kickstarter direct trade try-hard woke four dollar toast truffaut. Green juice keffiyeh four dollar toast hot chicken pabst typewriter scenester before they sold out banh mi roof party bushwick ugh ennui edison bulb echo park. Street art edison bulb heirloom occupy health goth, cloud bread af small batch deep v crucifix intelligentsia try-hard. Wayfarers hexagon chartreuse, selvage lo-fi coloring book vape. Raw denim marfa taiyaki photo booth.`
 
@@ -415,5 +482,66 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       await ce.dispose()
     })
+
+    it(`should render truncated variation of title tag string, then title-break`, async () => {
+      const testValue = `${new Date()} Sartorial jean shorts actually, tattooed kickstarter direct trade try-hard woke four dollar toast truffaut. Green juice keffiyeh four dollar toast hot chicken pabst typewriter scenester before they sold out banh mi roof party bushwick ugh ennui edison bulb echo park. Street art edison bulb heirloom occupy health goth, cloud bread af small batch deep v crucifix intelligentsia try-hard. Wayfarers hexagon chartreuse, selvage lo-fi coloring book vape. Raw denim marfa taiyaki photo booth.`
+
+      const ce = await service.customEventHandle(elementHandle, CUSTOM_EVENT_TYPE)
+
+      await service.setTitle(elementHandle, testValue)
+      await service.setTitleBreak(elementHandle, 'end')
+      await service.waitForCustomEvent(MAX_TIMEOUT)
+
+      const textContent = await service.getTextContent(elementHandle)
+      const textContentLength = await page.$eval(CUSTOM_ELEMENT, e => e.textContent.length)
+      // remove 2 chars, separator + space
+      const augmented = textContent.substring(0, textContentLength - 2)
+
+      expect(testValue).to.include(augmented)
+
+      await ce.dispose()
+    })
+  })
+
+  describe(`reject invalid break types`, () => {
+    it(`should accept a valid type`, async () => {
+      const type = 'center'
+      const textBreak = await service.getTitleBreak(elementHandle)
+      console.log('textBreak', textBreak)
+      await service.setTitleBreak(elementHandle, type)
+      const updatedTextBreak = await service.getTitleBreak(elementHandle)
+      console.log('updatedTextBreak', updatedTextBreak)
+
+      expect(type).not.to.equal(textBreak)
+      expect(type).to.equal(updatedTextBreak)
+      expect(textBreak).not.to.equal(updatedTextBreak)
+    })
+    it(`should not change break type property`, async () => {
+      const type = 'foo'
+      const textBreak = await service.getTitleBreak(elementHandle)
+
+      await service.setTitleBreak(elementHandle, type)
+      const updatedTextBreak = await service.getTitleBreak(elementHandle)
+
+      expect(type).not.to.equal(updatedTextBreak)
+      expect(textBreak).to.equal(updatedTextBreak)
+    })
+    it(`should not change break type attribute`, async () => {
+      const textBreak = await service.getAttributeTitleBreak(elementHandle)
+
+      await service.setTitleBreak(elementHandle, 'foo')
+      const updatedTextBreak = await service.getAttributeTitleBreak(elementHandle)
+
+      expect(textBreak).to.equal(updatedTextBreak)
+    })
+    // it.skip(`should throw warning if 'debug' attribute is assigned`, async () => {
+
+    //   const textBreak = await service.getTitleBreak(elementHandle)
+
+    //   await service.setTitleBreak(elementHandle, 'foo')
+    //   const updatedTextBreak = await service.getTitleBreak(elementHandle)
+
+    //   expect(textBreak).to.equal(updatedTextBreak)
+    // })
   })
 })

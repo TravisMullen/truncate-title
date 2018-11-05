@@ -1,32 +1,24 @@
 /* global HTMLElement:false, CustomEvent: false */
 
-import { name, version, config } from '../package.json'
+import { name, version } from '../package.json'
 import Enumeration from 'enumeration-class'
 import ResizeObserver from 'resize-observer-polyfill'
-
 import { estimateWidth } from './estimation.js'
+
+/** @typedef {string|number} attribute */
+/** @typedef {string} center */
+/** @typedef {string} end */
 
 /**
  * Availible truncation types.
  *
  * @readonly
- * @enum {string}
- * @see TruncateTitle#cutCenter
- * @see TruncateTitle#cutEnd
+ * @enum {center|end}
+ *
  */
 const TYPES = new Enumeration({
   center: 'cutCenter',
   end: 'cutEnd'
-})
-
-/**
- * Default value settings.
- *
- * @readonly
- */
-const DEFAULT = Object.freeze({
-  TYPES: TYPES.end,
-  SEPARATOR: '\u2026'
 })
 
 /**
@@ -35,17 +27,22 @@ const DEFAULT = Object.freeze({
  * Declare full text as `title` attribute,
  * and will auto generate `textContent`.
  *
- * @customElement
+ * @customElement trucate-title
  * @class TruncateTitle
  * @augments HTMLElement
- * @demo /index.html
+ * @see example {@link https://github.com/notmessenger/jsdoc-plugins/blob/master/README.md}
+ * @example <captionSome text</caption>
+ * <trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></trucate-title>
+ * @example <caption>Small Parent</caption>
+ * <div style="width: 100px"><trucate-title title="Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></trucate-title></div>
+ * @example index.html
  */
 class TruncateTitle extends HTMLElement {
   constructor () {
     super()
     /**
      * Version
-     * @member {number}
+     * @member {string}
      * @readonly
      */
     Object.defineProperty(this, 'version', {
@@ -54,30 +51,6 @@ class TruncateTitle extends HTMLElement {
       writable: false,
       value: version
     })
-
-    /**
-     * Debug Attribute Name
-     * Can be set on initial load, only, for console logs.
-     * Attribute will not be observed.
-     *
-     * @todo  Imp this!
-     * @member {string}
-     * @readonly
-     */
-    Object.defineProperty(this, '_debugAttributeName', {
-      enumerable: false,
-      configurable: false,
-      writable: false,
-      value: config.debugAttributeName
-    })
-
-    /**
-     * Truncation type.
-     * @member {string}
-     * @default
-     * @see TruncateTitle#attributeChangedCallback
-     */
-    this.truncationType = DEFAULT.TYPES
 
     /**
      * requestAnimationFrame reference for cancellation.
@@ -102,14 +75,7 @@ class TruncateTitle extends HTMLElement {
      * @member {string}
      * @default
      */
-    this.separator = DEFAULT.SEPARATOR
-
-    /**
-     * Estimated character count to remove.
-     * This is used to speed up the truncation process.
-     * @type {Number}
-     */
-    this._estimatedTruncation = 0
+    this.separator = '\u2026'
 
     /**
      * Amount of characters removed from text.
@@ -123,13 +89,11 @@ class TruncateTitle extends HTMLElement {
      * @member {Object}
      */
     this._hasChanged = {}
-
-    /** create wrapper element */
   }
 
-  /**
-   * Functions for instance.
-   */
+  // ========================================================================== //
+  // Functions for instance.
+  // ========================================================================== //
 
   /**
    * Signal that truncation has been completed.
@@ -140,14 +104,8 @@ class TruncateTitle extends HTMLElement {
     this.style.opacity = 1
     this.dispatchEvent(new CustomEvent('truncate-complete', {
       detail: {
-        title: this.getAttribute('title'),
-        trunc: this.textContent,
-        chars: {
-          estimated: this._estimatedTruncation,
-          title: this.getAttribute('title').length,
-          trunc: this.textContent.length,
-          removed: (this.getAttribute('title').length - this.textContent.length)
-        },
+        before: this.getAttribute('title'),
+        after: this.textContent,
         width: this.parentElement.clientWidth
       },
       bubbles: true,
@@ -195,9 +153,25 @@ class TruncateTitle extends HTMLElement {
   _updateContent (newValue) {
     /** render the raw text string in the DOM */
     this.textContent = newValue
-
     /** store width value for comparison later */
     this.contentWidth = this.offsetWidth
+  }
+
+  /**
+   * Check to see if declared type is valid.
+   *
+   * @param  {string} newValue  Break type to be assigned.
+   * @return {boolean}           Is a valid breaktype. [True=valid]
+   */
+  _validateBreakType (newValue) {
+    if (TYPES.has(newValue.toLowerCase())) {
+      return true
+    } else {
+      if (this.hasAttribute('debug')) {
+        console.warn(`${newValue} is not a valid truncation type. It has not been changed. Only "${Object.keys(TYPES).join('" and "')}" types are valid.`)
+      }
+      return false
+    }
   }
 
   // ========================================================================== //
@@ -224,7 +198,7 @@ class TruncateTitle extends HTMLElement {
     /**
      * ResizeObserver callback function for handling truncation logic.
      *
-     * @see {@link} https://wicg.github.io/ResizeObserver/
+     * @see {@link https://wicg.github.io/ResizeObserver/}
      */
     this._resizeObserver = new ResizeObserver((entries, observer) => {
       for (const entry of entries) {
@@ -277,71 +251,103 @@ class TruncateTitle extends HTMLElement {
     /**
      * Set title value. Do first steps for truncation.
      */
-    if (this.hasAttribute('title')) {
-      this._updateContent(this.getAttribute('title'))
-      this._doTruncate(this.getAttribute('title'))
+    if (!this.hasAttribute('title')) {
+      this.setAttribute('title-break', 'end')
     }
   }
 
   disconnectedCallback () {
-    window.cancelAnimationFrame(this._rAF)
+    this._resizeObserver.disconnect()
+    if (this._rAF) { window.cancelAnimationFrame(this._rAF) }
   }
 
   static get observedAttributes () {
     return [
+    /**
+     * Title Attribute
+     *
+     * @name title
+     * @type {string}
+     * @memberof TruncateTitle
+     * @emits TruncateTitle#_updateContent
+     * @emits TruncateTitle#_doTruncate
+     */
       'title',
+
+      /**
+     * Title break Attribute
+     *
+     * @name title-break
+     * @type {string}
+     * @memberof TruncateTitle
+     * @emits TruncateTitle#separator
+     * @emits TruncateTitle#_doTruncate
+     */
       'title-break'
     ]
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
     /** Make sure Node.isConnected before trying to augment content */
-    if (name === 'title' && this.isConnected) {
+    if (!this.isConnected) return
+    if (this._rAF) { window.cancelAnimationFrame(this._rAF) }
 
-      /** only do estimate once, incase there is an inaccuracy this cound create an infinite loop. */
-      this._increment = estimateWidth(this, this.parentElement, newValue)
-
-      this._updateContent(newValue)
-      this._doTruncate(newValue)
-    }
     /** If newValue is undefined its a typeof string */
-    if (name === 'title-break') {
-      this.truncationType = TYPES[newValue || DEFAULT.TYPES]
-
-      // window.cancelAnimationFrame(this._rAF)
-
-      const title = this.getAttribute('title')
-
-      // this._updateContent(title)
-
-      // this._increment = estimateWidth(this, this.parentElement, title)
-
-      this._doTruncate(title)
+    if (name === 'title-break' && this._validateBreakType(newValue)) {
+      /**
+       * Truncation type.
+       * @member {string}
+       * @see TruncateTitle#attributeChangedCallback
+       */
+      this.truncationType = TYPES[newValue]
     }
+
+    this._updateContent(this.getAttribute('title'))
+
+    this._increment = estimateWidth(this, this.parentElement, this.getAttribute('title'))
+
+    this._doTruncate(this.getAttribute('title'))
   }
 
   // ========================================================================== //
   // Getters and Setters.
   // ========================================================================== //
-
+  /**
+   * Get `title` value.
+   * @name getTitle
+   * @type {string}
+   * @return {string}
+   */
   get title () {
-    this.getAttribute('title')
+    return this.getAttribute('title')
   }
-
+  /**
+   * Set `title` value.
+   * @name setTitle
+   * @emits TruncateTitle#title
+   * @param {string}
+   */
   set title (newValue) {
     this.setAttribute('title', newValue)
   }
-
+  /**
+   * Get `title` value from `title-break`.
+   * @name getTitleBreak
+   * @type {string}
+   * @return {cutType}
+   */
   get titleBreak () {
-    this.getAttribute('title-break')
+    return this.getAttribute('title-break')
   }
-
+  /**
+   * Set `title` value.
+   * @name setTitleBreak
+   * @emits TruncateTitle#title-break
+   * @param {cutType}
+   */
   set titleBreak (newValue) {
-    if (TYPES.has(newValue.toLowerCase())) {
+    if (this._validateBreakType(newValue)) {
       this.setAttribute('title-break', newValue)
-    } else {
-      /** @todo throw error, warning or ignore? */
-      console.warn(`${newValue} is not a valid truncation type. It has not been changed.`)
     }
   }
 
@@ -415,9 +421,9 @@ class TruncateTitle extends HTMLElement {
   static cutCenter (title, increment, separator = '\u2026') {
     const centerIndex = Math.floor(title.length / 2)
     return [
-      title.slice(0, (centerIndex - increment)),
+      title.slice(0, (centerIndex - Math.ceil(increment / 2))),
       separator,
-      title.slice((centerIndex + increment), title.length)
+      title.slice((centerIndex + Math.ceil(increment / 2)), title.length)
     ].join(' ')
   }
 }
