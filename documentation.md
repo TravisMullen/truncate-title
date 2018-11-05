@@ -28,11 +28,13 @@
         * [._rAF](#TruncateTitle+_rAF) : <code>number</code>
         * [.contentWidth](#TruncateTitle+contentWidth) : <code>number</code>
         * [.separator](#TruncateTitle+separator) : <code>string</code>
+        * [._estimatedTruncation](#TruncateTitle+_estimatedTruncation) : <code>Number</code>
         * [._increment](#TruncateTitle+_increment) : <code>number</code>
         * [._hasChanged](#TruncateTitle+_hasChanged) : <code>Object</code>
         * [.textContent](#TruncateTitle+textContent)
         * [.contentWidth](#TruncateTitle+contentWidth)
         * [._resizeObserver](#TruncateTitle+_resizeObserver)
+        * [._increment](#TruncateTitle+_increment)
         * [._completeTruncate()](#TruncateTitle+_completeTruncate)
         * [._doTruncate(title, grow)](#TruncateTitle+_doTruncate)
         * [._updateContent(newValue)](#TruncateTitle+_updateContent)
@@ -89,6 +91,13 @@ on `connectedCallback` but is not observed.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **Default**: <code>&quot;…&quot;</code>  
+<a name="TruncateTitle+_estimatedTruncation"></a>
+
+### truncateTitle._estimatedTruncation : <code>Number</code>
+Estimated character count to remove.
+This is used to speed up the truncation process.
+
+**Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 <a name="TruncateTitle+_increment"></a>
 
 ### truncateTitle._increment : <code>number</code>
@@ -121,6 +130,12 @@ ResizeObserver callback function for handling truncation logic.
 
 **Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 **See**: {@link} https://wicg.github.io/ResizeObserver/  
+<a name="TruncateTitle+_increment"></a>
+
+### truncateTitle._increment
+only do estimate once, incase there is an inaccuracy this cound create an infinite loop.
+
+**Kind**: instance property of [<code>TruncateTitle</code>](#TruncateTitle)  
 <a name="TruncateTitle+_completeTruncate"></a>
 
 ### truncateTitle._completeTruncate()
@@ -179,8 +194,9 @@ Determines if truncated title text is larger than its parent.
 ### TruncateTitle.shouldGrow(self) ⇒ <code>boolean</code>
 Determines if truncated title text has room within its parent to add more characters.
 
+Accounts for padding of parent.
+
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Note**: Accounts for padding of parent.  
 **See**: TruncateTitle#_doTruncate  
 
 | Param | Type | Description |
@@ -205,12 +221,11 @@ Remove characters from the end of the string.
 Remove characters from the center of the string.
 
 **Kind**: static method of [<code>TruncateTitle</code>](#TruncateTitle)  
-**Note**: `increment` is doubled since it is applied twice.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | title | <code>string</code> |  |
-| increment | <code>number</code> | Number of characters to be removed. |
+| increment | <code>number</code> | Number of characters to be removed. `increment` is doubled since it is applied twice. |
 
 <a name="TYPES"></a>
 

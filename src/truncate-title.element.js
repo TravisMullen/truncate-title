@@ -183,7 +183,6 @@ class TruncateTitle extends HTMLElement {
    * @param {string} newValue
    */
   _updateContent (newValue) {
-
     /** render the raw text string in the DOM */
     this.textContent = newValue
 
@@ -286,9 +285,8 @@ class TruncateTitle extends HTMLElement {
     /** Make sure Node.isConnected before trying to augment content */
     if (name === 'title' && this.isConnected) {
       /** only do estimate once, incase there is an inaccuracy this cound create an infinite loop. */
-      this._estimatedTruncation = estimateWidth(this, this.parentElement, newValue)
-    console.log('this._estimatedTruncation', this._estimatedTruncation)
-    
+      this._increment = estimateWidth(this, this.parentElement, newValue)
+      // console.log('this._estimatedTruncation', this._estimatedTruncation)
 
       this._updateContent(newValue)
       this._doTruncate(newValue)
