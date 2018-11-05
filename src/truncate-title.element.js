@@ -20,6 +20,16 @@ const TYPES = new Enumeration({
 })
 
 /**
+ * Default value settings.
+ *
+ * @readonly
+ */
+const DEFAULT = Object.freeze({
+  TYPES: TYPES.end,
+  SEPARATOR: '\u2026'
+})
+
+/**
  * # Truncate Title
  * Custom Element to truncate text within an `abbr` tag.
  * Declare full text as `title` attribute,
@@ -67,7 +77,7 @@ class TruncateTitle extends HTMLElement {
      * @default
      * @see TruncateTitle#attributeChangedCallback
      */
-    this.truncationType = TYPES.end
+    this.truncationType = DEFAULT.TYPES
 
     /**
      * requestAnimationFrame reference for cancellation.
@@ -92,7 +102,7 @@ class TruncateTitle extends HTMLElement {
      * @member {string}
      * @default
      */
-    this.separator = '\u2026'
+    this.separator = DEFAULT.SEPARATOR
 
     /**
      * Estimated character count to remove.
@@ -278,23 +288,35 @@ class TruncateTitle extends HTMLElement {
   }
 
   static get observedAttributes () {
-    return ['title', 'title-break']
+    return [
+      'title',
+      'title-break'
+    ]
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
     /** Make sure Node.isConnected before trying to augment content */
     if (name === 'title' && this.isConnected) {
+
       /** only do estimate once, incase there is an inaccuracy this cound create an infinite loop. */
       this._increment = estimateWidth(this, this.parentElement, newValue)
-      // console.log('this._estimatedTruncation', this._estimatedTruncation)
 
       this._updateContent(newValue)
       this._doTruncate(newValue)
     }
     /** If newValue is undefined its a typeof string */
-    if (name === 'title-break' && newValue !== 'undefined') {
-      this.truncationType = TYPES[newValue]
-      this._doTruncate(this.getAttribute('title'))
+    if (name === 'title-break') {
+      this.truncationType = TYPES[newValue || DEFAULT.TYPES]
+
+      // window.cancelAnimationFrame(this._rAF)
+
+      const title = this.getAttribute('title')
+
+      // this._updateContent(title)
+
+      // this._increment = estimateWidth(this, this.parentElement, title)
+
+      this._doTruncate(title)
     }
   }
 

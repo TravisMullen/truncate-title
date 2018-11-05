@@ -1,6 +1,6 @@
 
 const approxFontWidth = fontSize => (
-  Math.floor(fontSize / 2.5)
+  Math.floor(fontSize / 2.2)
 )
 
 const fitCharacters = (containerWidth, fontWidth) => (
@@ -8,11 +8,7 @@ const fitCharacters = (containerWidth, fontWidth) => (
 )
 
 export const estimateWidth = (targetElement, parentElement, title = '') => {
-  console.log('typeof(title)', typeof (title), title)
-
-  if (typeof (title) !== 'string') {
-    return
-  }
+  if (typeof (title) !== 'string') return
 
   const fontSize = parseInt(window.getComputedStyle(targetElement).fontSize.replace('px', ''), 10)
   const width = parentElement
