@@ -7,7 +7,8 @@ const plugins = [
     preferConst: true
   }),
   resolve({
-    modulesOnly: true
+    modulesOnly: true,
+    only: 'enumeration-class'
   })
 ]
 
