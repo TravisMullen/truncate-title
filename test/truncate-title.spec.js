@@ -120,7 +120,6 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       await service.waitForCustomEvent(MAX_TIMEOUT)
 
       const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
-
       expect(await getOpacity).to.equal('1')
 
       await ce.dispose()
@@ -316,6 +315,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       expect(updatedValue).to.include(augmented)
 
+      const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
+      expect(await getOpacity).to.equal('1')
+
       await ce.dispose()
     })
 
@@ -340,6 +342,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       const augmented = textContent.substring(0, textContentLength - 2)
 
       expect(updatedValue).to.include(augmented)
+
+      const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
+      expect(await getOpacity).to.equal('1')
 
       await ce.dispose()
     })
@@ -367,6 +372,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       expect(testValue).to.include(beginingChunk, 'begining does not match')
       expect(testValue).to.include(endingChunk, 'end does not match')
 
+      const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
+      expect(await getOpacity).to.equal('1')
+
       await ce.dispose()
     })
 
@@ -392,6 +400,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       expect(testValue).to.include(beginingChunk, 'begining does not match')
       expect(testValue).to.include(endingChunk, 'end does not match')
 
+      const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
+      expect(await getOpacity).to.equal('1')
+
       await ce.dispose()
     })
 
@@ -416,6 +427,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       expect(testValue).to.include(beginingChunk, 'begining does not match')
       expect(testValue).to.include(endingChunk, 'end does not match')
+
+      const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
+      expect(await getOpacity).to.equal('1')
 
       await ce.dispose()
     })
@@ -459,6 +473,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       expect(testValue).to.include(beginingChunk, 'begining does not match')
       expect(testValue).to.include(endingChunk, 'end does not match')
 
+      const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
+      expect(await getOpacity).to.equal('1')
+
       await ce.dispose()
     })
   })
@@ -480,6 +497,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       expect(testValue).to.include(augmented)
 
+      const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
+      expect(await getOpacity).to.equal('1')
+
       await ce.dispose()
     })
 
@@ -499,6 +519,9 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
 
       expect(testValue).to.include(augmented)
 
+      const getOpacity = await page.$eval(CUSTOM_ELEMENT, e => e.style.opacity)
+      expect(await getOpacity).to.equal('1')
+
       await ce.dispose()
     })
   })
@@ -509,7 +532,7 @@ describe(`Testing ${CUSTOM_ELEMENT}[is="${EXTENDED_ELEMENT}"]`, function () {
       const textBreak = await service.getTitleBreak(elementHandle)
       console.log('textBreak', textBreak)
       await service.setTitleBreak(elementHandle, type)
-      const updatedTextBreak = await service.getTitleBreak(elementHandle)
+      const updatedTextBreak = await service.getAttributeTitleBreak(elementHandle)
       console.log('updatedTextBreak', updatedTextBreak)
 
       expect(type).not.to.equal(textBreak)

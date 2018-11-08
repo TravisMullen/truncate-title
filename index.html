@@ -30,12 +30,19 @@
   <div class="stage">
     <abbr debug is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></abbr>
   </div>
-  <code>title-break="tails"</code>
+  <div class="stage">
+    <abbr debug is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."  title-break="end"></abbr>
+  </div>
+  <code>title-break="end"</code>
 
   <div class="stage">
     <abbr debug is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui." title-break="center"></abbr>
   </div>
   <code>title-break="center"</code>
+
+  <div class="stage">
+    <abbr debug is="truncate-title" id="changeme" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui."></abbr>
+  </div>
   
   <h3>Window as parent.</h3>
   <abbr debug is="truncate-title" title="Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui." title-break="end"></abbr>
@@ -56,6 +63,7 @@
     }
     setTimeout(() => {
       document.getElementById('fillme').title = 'Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui. Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui. Medium Lorem ipsum dolor amet typewriter pickled iPhone hella occupy neutra tattooed vinyl drinking vinegar ennui.'
+      document.getElementById('changeme').titleBreak = 'center'
     }, 1000)
   </script>
   <noscript>
